@@ -1,5 +1,6 @@
 package view;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -61,13 +62,15 @@ public class IntroActivity extends AppCompatActivity {
      * Email Register Activity 로 이동
      */
     @OnClick(R.id.register_btn) void registerClick(){
-
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
     }
 
     /**
      * Email Login Activity 로 이동
      */
     @OnClick(R.id.login_btn) void loginClick(){
-
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
     }
 }

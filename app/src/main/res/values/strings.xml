@@ -10,4 +10,20 @@
     <string name="facebook_login_txt">페이스북으로 간편 로그인</string>
     <string name="intro_sub_title_txt">카페 및 디저트 맛집, WAFFLE</string>
     <string name="intro_sub_help_txt">가입과 함께 WAFFLE의 이용약관, 개인정보취급방침,\n위치기반서비스 이용약관에 동의하시게 됩니다.</string>
+
+    <!--Register-->
+    <string name="email_register_title_txt">이메일로 가입</string>
+    <string name="email_edit_box_hint_txt">이메일 주소</string>
+    <string name="password_edit_box_hint_txt">비밀번호(8자 이상)</string>
+    <string name="name_edit_box_hint_txt">이름(별명)</string>
+    <string name="register_btn_txt">가입하기</string>
+    <string name="register_error_input_email_txt">올바른 이메일 형식이 아닙니다.</string>
+    <string name="error_not_exist_input_txt">정보를 입력해주세요.</string>
+    <string name="register_error_input_pw_txt">비밀번호가 너무 짧습니다.</string>
+
+    <!--Login-->
+    <string name="email_login_title_txt">이메일로 로그인</string>
+    <string name="login_email_edit_box_hint_txt">이메일 주소</string>
+    <string name="login_password_edit_box_hint_txt">비밀번호</string>
+    <string name="login_btn_txt">로그인하기</string>
 </resources>

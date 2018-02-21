@@ -6,5 +6,8 @@
     <color name="colorGray">#9E9E9E</color>
     <color name="colorDivider">#E0E0E0</color>
     <color name="colorHalfBlue">#661565C0</color>
+    <color name="colorBackgroundGray">#F5F5F5</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTextHintGray">#BDBDBD</color>
+    <color name="colorBlack">#000000</color>
 </resources>
