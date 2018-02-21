@@ -1,13 +1,18 @@
 package com.cafemobile.waffle;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +23,8 @@ import view.LikeCafeFragment;
 import view.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final static String TAG = "MainActivity";
 
     private int currentPage = R.id.tab_1;
     @BindView(R.id.tab_1) ViewGroup tabBtn1;
@@ -33,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tab3_txt) TextView tab3_tv;
     @BindView(R.id.tab4_txt) TextView tab4_tv;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, new CafeListFragment());
         fragmentTransaction.commit();
+
     }
 
     /**

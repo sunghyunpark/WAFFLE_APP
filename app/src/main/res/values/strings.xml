@@ -14,7 +14,7 @@
     <!--Register-->
     <string name="email_register_title_txt">이메일로 가입</string>
     <string name="email_edit_box_hint_txt">이메일 주소</string>
-    <string name="password_edit_box_hint_txt">비밀번호(8자 이상)</string>
+    <string name="password_edit_box_hint_txt">비밀번호(6자 이상)</string>
     <string name="name_edit_box_hint_txt">이름(별명)</string>
     <string name="register_btn_txt">가입하기</string>
     <string name="register_error_input_email_txt">올바른 이메일 형식이 아닙니다.</string>
