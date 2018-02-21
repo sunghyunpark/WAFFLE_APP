@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorGray">#9E9E9E</color>
     <color name="colorDivider">#E0E0E0</color>
+    <color name="colorHalfBlue">#661565C0</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>
