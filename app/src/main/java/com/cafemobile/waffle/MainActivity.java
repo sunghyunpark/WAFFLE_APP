@@ -1,5 +1,6 @@
 package com.cafemobile.waffle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,13 +21,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import view.CafeListFragment;
 import view.HotFragment;
+import view.IntroActivity;
 import view.LikeCafeFragment;
 import view.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "MainActivity";
-
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
     private int currentPage = R.id.tab_1;
     @BindView(R.id.tab_1) ViewGroup tabBtn1;
     @BindView(R.id.tab_2) ViewGroup tabBtn2;
@@ -40,6 +44,19 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tab3_txt) TextView tab3_tv;
     @BindView(R.id.tab4_txt) TextView tab4_tv;
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +64,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        mAuth = FirebaseAuth.getInstance();
 
-        InitTabIcon(currentPage);
+        final SessionManager sessionManager = new SessionManager(getApplicationContext());
 
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame, new CafeListFragment());
-        fragmentTransaction.commit();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null || sessionManager.isLoggedIn()) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Toast.makeText(getApplicationContext(), "Sign In Success From MainActivity", Toast.LENGTH_SHORT).show();
+                    InitTabIcon(currentPage);
+
+                    android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_frame, new CafeListFragment());
+                    fragmentTransaction.commit();
+                } else { // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Toast.makeText(getApplicationContext(), "Not exist user data from firebase", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), IntroActivity.class));
+                    finish();
+                }
+            }};
+
 
     }
 

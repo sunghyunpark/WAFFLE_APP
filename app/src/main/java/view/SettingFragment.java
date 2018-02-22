@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 
 import com.cafemobile.waffle.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import presenter.LoginPresenter;
+
 public class SettingFragment extends Fragment {
 
-    public SettingFragment() {
-        // Required empty public constructor
-    }
+    View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,15 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        v = inflater.inflate(R.layout.fragment_setting, container, false);
+        ButterKnife.bind(this, v);
+
+        return v;
+    }
+
+    @OnClick(R.id.logout_btn) void logoutClicked(){
+        LoginPresenter loginPresenter = new LoginPresenter(getContext());
+        loginPresenter.logout();
     }
 
 }

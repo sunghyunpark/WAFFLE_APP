@@ -1,10 +1,15 @@
 package presenter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.cafemobile.waffle.MainActivity;
+import com.cafemobile.waffle.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,12 +23,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginPresenter implements Loginable{
 
     private final static String TAG = "LoginPresenter";
+    private SessionManager sessionManager;
     private FirebaseAuth mAuth;
     Context mContext;
 
     public LoginPresenter(Context context){
         this.mContext = context;
         this.mAuth = FirebaseAuth.getInstance();
+        this.sessionManager = new SessionManager(context);
     }
 
     @Override
@@ -38,7 +45,7 @@ public class LoginPresenter implements Loginable{
 
     @Override
     public void login(String email, String password){
-
+        signIn(email, password);
     }
 
     @Override
@@ -47,12 +54,37 @@ public class LoginPresenter implements Loginable{
     }
 
     /**
+     * logout from firebase
+     */
+    @Override
+    public void logout(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+        alert.setTitle("로그아웃");
+        alert.setMessage("정말 로그아웃 하시겠습니까?");
+        alert.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //sessionManager.setLogin(false);
+                //realmUtil.DeleteUserData();
+                mAuth.signOut();    //Firebase Logout
+                sessionManager.setLogin(false);
+            }
+        });
+        alert.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+
+                    }
+                });
+        alert.show();
+    }
+
+    /**
      * register to Firebase
      * @param email
      * @param password
      */
     private void createAccount(String email, String password) {
-        // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -72,5 +104,32 @@ public class LoginPresenter implements Loginable{
 
                     }
                 });
+    }
+
+    /**
+     * login to Firebase
+     * @param email
+     * @param password
+     */
+    private void signIn(String email, String password){
+        mAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(mContext, "Sign In Success From  LoginPresenter",
+                                    Toast.LENGTH_SHORT).show();
+                            sessionManager.setLogin(true);
+
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mContext.startActivity(intent);
+                        } else {
+                            Toast.makeText(mContext, "Sign In Fail From LoginPresenter",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } } );
+
     }
 }
