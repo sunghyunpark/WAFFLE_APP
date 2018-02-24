@@ -10,7 +10,7 @@ import android.view.WindowManager;
  */
 
 public class WaffleApplication extends Application{
-    public static final String SERVER_BASE_IP = "http://13.124.188.3/chapter/";
+    public static final String SERVER_BASE_IP = "http://13.124.188.3/waffle_test/api/v1/";
     public static int DISPLAY_WIDTH;
     public static int DISPLAY_HEIGHT;
 

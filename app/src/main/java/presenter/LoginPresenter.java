@@ -15,6 +15,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import api.ApiClient;
+import api.ApiInterface;
+import api.response.LoginResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * Created by SungHyun on 2018. 2. 21..
@@ -50,7 +57,7 @@ public class LoginPresenter implements Loginable{
 
     @Override
     public void register(String email, String password, String name){
-        createAccount(email, password);
+        createAccount(email, password, name);
     }
 
     /**
@@ -84,19 +91,18 @@ public class LoginPresenter implements Loginable{
      * @param email
      * @param password
      */
-    private void createAccount(String email, String password) {
+    private void createAccount(String email, String password, final String name) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (task.isSuccessful()) {
-                            Toast.makeText(mContext, "Sign Up Success",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.d("LoginPresenter", mAuth.getUid());
+                            postUserDataForRegister(mAuth.getUid(), name);
                         }else{
                             Toast.makeText(mContext, "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
@@ -117,19 +123,84 @@ public class LoginPresenter implements Loginable{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(mContext, "Sign In Success From  LoginPresenter",
-                                    Toast.LENGTH_SHORT).show();
-                            sessionManager.setLogin(true);
-
-                            Intent intent = new Intent(mContext, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            mContext.startActivity(intent);
+                            postUserDataForLogin(mAuth.getUid());
                         } else {
-                            Toast.makeText(mContext, "Sign In Fail From LoginPresenter",
+                            Toast.makeText(mContext, "Sign In Fail From Firebase",
                                     Toast.LENGTH_SHORT).show();
                         }
                     } } );
 
+    }
+
+    /**
+     * Firebase에 회원가입 후 얻은 uid, name 을 Waffle 서버 DB로 전송.
+     * Realm DB에 User data 저장
+     * @param uid
+     * @param name
+     */
+    private void postUserDataForRegister(String uid, String name){
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<LoginResponse> call = apiService.registerApi("register", uid, name, "N");
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse loginResponse = response.body();
+                if(!loginResponse.isError()){
+                    goMainActivity();
+                    Toast.makeText(mContext, loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext, loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("tag", t.toString());
+                Toast.makeText(mContext, "네트워크 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Firebase에서 uid 값을 받아온 뒤 Waffle 서버에서 user data 를 받아옴.
+     * Realm DB에 User data 저장
+     * @param uid
+     */
+    private void postUserDataForLogin(String uid){
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<LoginResponse> call = apiService.loginApi("login", uid);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse loginResponse = response.body();
+                if(!loginResponse.isError()){
+                    goMainActivity();
+                    Toast.makeText(mContext, loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext, loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("tag", t.toString());
+                Toast.makeText(mContext, "네트워크 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void goMainActivity(){
+        sessionManager.setLogin(true);
+
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
     }
 }
