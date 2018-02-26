@@ -1,5 +1,6 @@
 package api;
 
+import api.response.CafeResponse;
 import api.response.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -35,4 +36,8 @@ public interface ApiInterface {
      */
     @GET("users/login.php")
     Call<LoginResponse> loginApi(@Query("tag") String tag, @Query("uid") String uid);
+
+    @GET("cafe/cafe_info.php")
+    Call<CafeResponse> GetCafeListFromMyLocation(@Query("tag") String tag, @Query("uid") String uid, @Query("user_latitude") Double user_latitude,
+                                                 @Query("user_longitude") Double user_longitude, @Query("last_cafe_id") String last_cafe_id);
 }
