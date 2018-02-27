@@ -248,7 +248,7 @@ public class CafeListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 Glide.with(getActivity())
                         .setDefaultRequestOptions(requestOptions)
-                        .load(WaffleApplication.SERVER_BASE_IP+currentItem.getCafeThumbnail())
+                        .load(WaffleApplication.SERVER_BASE_PATH+currentItem.getCafeThumbnail())
                         .into(VHitem.cafeThumbnail);
 
                 VHitem.cafe_weekdays_open_close_time_tv.setText(cafeInfoWeekdaysTimeStr + " " +currentItem.getCafeWeekDaysOpenTime() + " ~ "+currentItem.getCafeWeekDaysCloseTime());

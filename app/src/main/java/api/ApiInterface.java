@@ -37,6 +37,15 @@ public interface ApiInterface {
     @GET("users/login.php")
     Call<LoginResponse> loginApi(@Query("tag") String tag, @Query("uid") String uid);
 
+    /**
+     * Load Cafe List API
+     * @param tag -> cafe_list_from_user_location
+     * @param uid
+     * @param user_latitude
+     * @param user_longitude
+     * @param last_cafe_id
+     * @return
+     */
     @GET("cafe/cafe_info.php")
     Call<CafeResponse> GetCafeListFromMyLocation(@Query("tag") String tag, @Query("uid") String uid, @Query("user_latitude") Double user_latitude,
                                                  @Query("user_longitude") Double user_longitude, @Query("last_cafe_id") String last_cafe_id);

@@ -20,7 +20,7 @@ public class ApiClient {
                     .setLenient()
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(WaffleApplication.SERVER_BASE_IP)
+                    .baseUrl(WaffleApplication.SERVER_API_PATH)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
