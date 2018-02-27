@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:orientation="vertical"
+    android:background="@null">
+
+    <Button
+        android:id="@+id/facebook_share_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/share_bottom_sheet_shape"
+        android:text="@string/share_bottom_sheet_facebook_txt"
+        android:textStyle="bold"
+        android:textSize="15dp"/>
+    <Button
+        android:id="@+id/other_share_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/share_bottom_sheet_shape"
+        android:text="@string/share_bottom_sheet_other_txt"
+        android:textStyle="bold"
+        android:textSize="15dp"/>
+
+    <Button
+        android:id="@+id/share_cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/facebook_share_btn"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/share_bottom_sheet_shape"
+        android:text="@string/share_bottom_sheet_cancel_txt"
+        android:textStyle="bold"
+        android:textSize="15dp"/>
+</LinearLayout>

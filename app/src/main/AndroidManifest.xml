@@ -23,7 +23,8 @@
         <activity android:name="view.IntroActivity" />
         <activity android:name="view.RegisterActivity" />
         <activity android:name="view.LoginActivity" />
-        <activity android:name="view.LoadingDialog"></activity>
+        <activity android:name="view.LoadingDialog" />
+        <activity android:name="view.AboutCafeActivity"></activity>
     </application>
 
 </manifest>

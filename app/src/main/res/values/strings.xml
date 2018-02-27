@@ -40,4 +40,21 @@
     <!-- tab1 -->
     <string name="tab1_title_txt">내 주변 카페</string>
     <string name="tab1_sub_txt">GPS를 켜면 내 주변 카페들을 가까운 순으로 보여줍니다.</string>
+
+    <!--about_cafe-->
+    <string name="comment_btn_txt">리뷰작성</string>
+    <string name="kakao_share_btn_txt">카톡공유</string>
+    <string name="share_btn_txt">공유하기</string>
+    <string name="about_cafe_open_txt">주중</string>
+    <string name="about_cafe_close_txt">주말</string>
+    <string name="about_cafe_main_desert_txt">대표 음료 및 디저트</string>
+    <string name="about_cafe_go_menu_btn">전체 보기</string>
+    <string name="about_cafe_empty_comment_txt">등록된 리뷰가 없습니다.</string>
+    <string name="about_cafe_review_title_txt">WAFFLE 리뷰</string>
+    <string name="about_cafe_go_comment_btn">전체 보기</string>
+
+    <!--Share Bottom Sheet-->
+    <string name="share_bottom_sheet_facebook_txt">Facebook</string>
+    <string name="share_bottom_sheet_other_txt">기타</string>
+    <string name="share_bottom_sheet_cancel_txt">취소</string>
 </resources>

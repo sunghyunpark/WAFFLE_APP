@@ -1,6 +1,8 @@
 package api;
 
+import api.response.CafeEtcInfoResponse;
 import api.response.CafeResponse;
+import api.response.CommonResponse;
 import api.response.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -49,4 +51,37 @@ public interface ApiInterface {
     @GET("cafe/cafe_info.php")
     Call<CafeResponse> GetCafeListFromMyLocation(@Query("tag") String tag, @Query("uid") String uid, @Query("user_latitude") Double user_latitude,
                                                  @Query("user_longitude") Double user_longitude, @Query("last_cafe_id") String last_cafe_id);
+
+    /**
+     * Get Cafe Info With CafeId API
+     * @param tag -> about_cafe_info_with_cafe_id
+     * @param cafe_id
+     * @return
+     */
+    @GET("cafe/cafe_info.php")
+    Call<CafeResponse> GetAboutCafeInfo(@Query("tag") String tag, @Query("cafe_id") String cafe_id);
+
+    /**
+     * About Cafe Etc Info 불러오기 API
+     * @param tag -> cafe_etc_info
+     * @param cafe_id
+     * @param all_flag -> Y/N
+     * @return
+     */
+    @GET("cafe/cafe_info.php")
+    Call<CafeEtcInfoResponse> GetCafeEtcInfo(@Query("tag") String tag, @Query("cafe_id") String cafe_id, @Query("uid") String uid, @Query("all_flag") String all_flag);
+
+    /**
+     * Cafe Like API
+     * @param tag -> like_cafe
+     * @param uid
+     * @param cafe_id
+     * @param state -> like state Y/N
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("cafe/cafe_info.php")
+    Call<CommonResponse> LikeCafe(@Field("tag") String tag, @Field("uid") String uid, @Field("cafe_id") String cafe_id, @Field("like_state") String state);
+
+
 }
