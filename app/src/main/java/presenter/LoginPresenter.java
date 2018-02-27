@@ -1,9 +1,11 @@
 package presenter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import api.response.LoginResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import view.LoadingDialog;
 
 
 /**
@@ -32,7 +35,7 @@ public class LoginPresenter implements Loginable{
     private final static String TAG = "LoginPresenter";
     private SessionManager sessionManager;
     private FirebaseAuth mAuth;
-    Context mContext;
+    private Context mContext;
 
     public LoginPresenter(Context context){
         this.mContext = context;
@@ -74,6 +77,7 @@ public class LoginPresenter implements Loginable{
                 //realmUtil.DeleteUserData();
                 mAuth.signOut();    //Firebase Logout
                 sessionManager.setLogin(false);
+
             }
         });
         alert.setNegativeButton("아니오",

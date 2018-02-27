@@ -29,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        loadingDialog.cancel();
+        if(loadingDialog != null)
+        loadingDialog.dismiss();
     }
 
     @Override
@@ -38,8 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
+
         loadingDialog = new LoadingDialog(this);
-        loadingDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        loadingDialog.getWindow()
+                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
     }
 

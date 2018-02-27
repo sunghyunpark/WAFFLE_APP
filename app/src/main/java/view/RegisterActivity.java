@@ -1,5 +1,6 @@
 package view;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -27,7 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        loadingDialog.cancel();
+        if(loadingDialog != null)
+        loadingDialog.dismiss();
     }
 
     @Override
@@ -37,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         loadingDialog = new LoadingDialog(this);
+        loadingDialog.getWindow()
+                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
     }
 
@@ -52,9 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
         }else if(passwordStr.length()<6){
             Toast.makeText(getApplicationContext(), inputPwErrorStr, Toast.LENGTH_SHORT).show();
         }else{
+            loadingDialog.show();
             LoginPresenter loginPresenter = new LoginPresenter(getApplicationContext());
             loginPresenter.register(emailStr, passwordStr, nameStr);
-            loadingDialog.show();
         }
 
     }

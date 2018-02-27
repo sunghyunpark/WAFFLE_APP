@@ -284,24 +284,24 @@ public class CafeListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 }
 
                 if(cafeFeature(position, 1)){
-                    VHitem.full_time_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.full_time_img.setBackgroundResource(R.mipmap.cafe_full_time_img);
                 }else{
-                    VHitem.full_time_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.full_time_img.setBackgroundResource(R.mipmap.cafe_not_full_time_img);
                 }
                 if(cafeFeature(position, 2)){
-                    VHitem.wifi_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.wifi_img.setBackgroundResource(R.mipmap.cafe_wifi_img);
                 }else{
-                    VHitem.wifi_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.wifi_img.setBackgroundResource(R.mipmap.cafe_not_wifi_img);
                 }
                 if(cafeFeature(position, 3)){
-                    VHitem.smoke_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.smoke_img.setBackgroundResource(R.mipmap.cafe_smoke_img);
                 }else{
-                    VHitem.smoke_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.smoke_img.setBackgroundResource(R.mipmap.cafe_not_smoke_img);
                 }
                 if(cafeFeature(position, 4)){
-                    VHitem.parking_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.parking_img.setBackgroundResource(R.mipmap.cafe_parking_img);
                 }else{
-                    VHitem.parking_img.setBackgroundResource(R.mipmap.ic_launcher);
+                    VHitem.parking_img.setBackgroundResource(R.mipmap.cafe_not_parking_img);
                 }
 
                 VHitem.cafe_item_layout.setOnClickListener(new View.OnClickListener() {

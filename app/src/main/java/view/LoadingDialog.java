@@ -7,6 +7,7 @@ import android.view.Window;
 import com.cafemobile.waffle.R;
 
 public class LoadingDialog extends Dialog {
+
     public LoadingDialog(Activity activity) {
         super(activity);
         requestWindowFeature(Window.FEATURE_NO_TITLE); //다이얼 로그 제목을 삭제하자
