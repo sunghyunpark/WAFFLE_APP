@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.cafemobile.waffle.R;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -14,6 +15,7 @@ import presenter.LoginPresenter;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private LoadingDialog loadingDialog;
     @BindView(R.id.register_btn) Button register_btn;
     @BindView(R.id.email_edit_box) EditText email_et;
     @BindView(R.id.email_password_edit_box) EditText password_et;
@@ -23,11 +25,18 @@ public class RegisterActivity extends AppCompatActivity {
     @BindString(R.string.register_error_input_pw_txt) String inputPwErrorStr;
 
     @Override
+    public void onStop(){
+        super.onStop();
+        loadingDialog.cancel();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         ButterKnife.bind(this);
+        loadingDialog = new LoadingDialog(this);
 
     }
 
@@ -45,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         }else{
             LoginPresenter loginPresenter = new LoginPresenter(getApplicationContext());
             loginPresenter.register(emailStr, passwordStr, nameStr);
+            loadingDialog.show();
         }
 
     }

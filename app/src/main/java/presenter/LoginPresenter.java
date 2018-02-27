@@ -103,6 +103,7 @@ public class LoginPresenter implements Loginable{
                         if (task.isSuccessful()) {
                             Log.d("LoginPresenter", mAuth.getUid());
                             postUserDataForRegister(mAuth.getUid(), name);
+
                         }else{
                             Toast.makeText(mContext, "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
