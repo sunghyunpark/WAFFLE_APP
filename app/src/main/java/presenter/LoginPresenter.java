@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import api.ApiClient;
 import api.ApiInterface;
 import api.response.LoginResponse;
+import database.RealmUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,14 +31,20 @@ import retrofit2.Response;
 public class LoginPresenter implements Loginable{
 
     private final static String TAG = "LoginPresenter";
+    private final static String LOGIN_TYPE_EMAIL = "email";
+    private final static String LOGIN_TYPE_FACEBOOK = "facebook";
+    private final static String LOGIN_TYPE_KAKAO = "kakao";
+
     private SessionManager sessionManager;
     private FirebaseAuth mAuth;
+    private RealmUtil realmUtil;
     private Context mContext;
 
     public LoginPresenter(Context context){
         this.mContext = context;
         this.mAuth = FirebaseAuth.getInstance();
         this.sessionManager = new SessionManager(context);
+        this.realmUtil = new RealmUtil(this.mContext);
     }
 
     @Override
@@ -74,6 +81,7 @@ public class LoginPresenter implements Loginable{
                 //realmUtil.DeleteUserData();
                 mAuth.signOut();    //Firebase Logout
                 sessionManager.setLogin(false);
+                realmUtil.DeleteUserData();
 
             }
         });
@@ -140,7 +148,7 @@ public class LoginPresenter implements Loginable{
      * @param uid
      * @param name
      */
-    private void postUserDataForRegister(String uid, String name){
+    private void postUserDataForRegister(final String uid, final String name){
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -150,6 +158,7 @@ public class LoginPresenter implements Loginable{
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 if(!loginResponse.isError()){
+                    realmUtil.InsertUserData(uid, LOGIN_TYPE_EMAIL, mAuth.getCurrentUser().getEmail(), name, "", loginResponse.getUser().getCreatedAt());
                     goMainActivity();
                     Toast.makeText(mContext, loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
                 }else{
@@ -171,7 +180,7 @@ public class LoginPresenter implements Loginable{
      * Realm DB에 User data 저장
      * @param uid
      */
-    private void postUserDataForLogin(String uid){
+    private void postUserDataForLogin(final String uid){
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -181,6 +190,7 @@ public class LoginPresenter implements Loginable{
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 if(!loginResponse.isError()){
+                    realmUtil.InsertUserData(uid, LOGIN_TYPE_EMAIL, mAuth.getCurrentUser().getEmail(), loginResponse.getUser().getName(), loginResponse.getUser().getPhoneNum(), loginResponse.getUser().getCreatedAt());
                     goMainActivity();
                     Toast.makeText(mContext, loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
                 }else{

@@ -1,12 +1,11 @@
 package view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -82,7 +81,6 @@ public class AboutCafeActivity extends AppCompatActivity {
     @BindString(R.string.network_error_txt) String networkErrorStr;
 
     @BindView(R.id.rl_bottom_sheet) RelativeLayout rlBottomSheet;
-    @BindView(R.id.share_recyclerView) RecyclerView share_recyclerView;
     @BindView(R.id.bottom_sheet_dim_layout) ViewGroup bottom_sheet_dim_layout;
     @BindView(R.id.share_cancel_btn) Button shareCancelBtn;
 

@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseUser;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import database.RealmConfig;
+import database.model.UserVO;
+import io.realm.Realm;
+import model.UserModel;
 import view.CafeListFragment;
 import view.HotFragment;
 import view.IntroActivity;
@@ -76,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Toast.makeText(getApplicationContext(), "Sign In Success From MainActivity", Toast.LENGTH_SHORT).show();
+
+                    setUserDataFromRealm();
+
                     InitTabIcon(currentPage);
 
                     android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -89,7 +96,31 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
             }};
+    }
 
+    /**
+     * Init User Data To UserModel From Realm
+     */
+    private void setUserDataFromRealm(){
+        Realm mRealm;
+        RealmConfig realmConfig;
+        realmConfig = new RealmConfig();
+        mRealm = Realm.getInstance(realmConfig.UserRealmVersion(getApplicationContext()));
+
+        UserVO userVO = mRealm.where(UserVO.class).equalTo("no",1).findFirst();
+        UserModel.getInstance().setUid(userVO.getUid());
+        UserModel.getInstance().setLoginType(userVO.getLoginType());
+        UserModel.getInstance().setEmail(userVO.getEmail());
+        UserModel.getInstance().setName(userVO.getName());
+        UserModel.getInstance().setPhoneNum(userVO.getPhoneNum());
+        UserModel.getInstance().setCreatedAt(userVO.getCreatedAt());
+
+        Log.d("UserData", "UserUid : "+ UserModel.getInstance().getUid());
+        Log.d("UserData", "UserLoginType : "+ UserModel.getInstance().getLoginType());
+        Log.d("UserData", "UserName : "+ UserModel.getInstance().getName());
+        Log.d("UserData", "UserEmail : "+ UserModel.getInstance().getEmail());
+        Log.d("UserData", "UserPhone : "+ UserModel.getInstance().getPhoneNum());
+        Log.d("UserData", "UserCreated_at : "+ UserModel.getInstance().getCreatedAt());
 
     }
 

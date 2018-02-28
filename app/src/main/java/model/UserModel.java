@@ -1,5 +1,7 @@
 package model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by SungHyun on 2018-02-24.
  */
@@ -11,7 +13,9 @@ public class UserModel {
     private String email;
     private String uid;    //uid From Firebase
     private String name;
+    @SerializedName("phone_num")
     private String phoneNum;
+    @SerializedName("created_at")
     private String createdAt;
 
     public static  UserModel getInstance(){
