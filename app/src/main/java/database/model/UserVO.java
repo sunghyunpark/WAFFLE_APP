@@ -1,12 +1,15 @@
-package model;
+package database.model;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by SungHyun on 2018-02-24.
+ * Created by SungHyun on 2018-02-28.
  */
 
-public class UserModel {
-    private static volatile UserModel user = null;
-
+public class UserVO extends RealmObject {
+    @PrimaryKey
+    private int no;
     private String loginType;    //Login Type : Email / Facebook / Kakao
     private String email;
     private String uid;    //uid From Firebase
@@ -14,15 +17,12 @@ public class UserModel {
     private String phoneNum;
     private String createdAt;
 
-    public static  UserModel getInstance(){
-        if(user == null)
-            synchronized (UserModel.class){
-                if(user==null){
-                    user = new UserModel();
-                }
-            }
+    public int getNo() {
+        return no;
+    }
 
-        return user;
+    public void setNo(int no) {
+        this.no = no;
     }
 
     public String getLoginType() {
@@ -72,5 +72,4 @@ public class UserModel {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
-
 }
