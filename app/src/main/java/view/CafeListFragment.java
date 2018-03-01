@@ -307,10 +307,10 @@ public class CafeListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 VHitem.cafe_item_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Intent intent = new Intent(getActivity(), AboutCafeActivity.class);
-                        //intent.putExtra("isData", "Y");
-                        //intent.putExtra("CafeModel", getItem(position));
-                        //startActivity(intent);
+                        Intent intent = new Intent(getActivity(), AboutCafeActivity.class);
+                        intent.putExtra("isData", "Y");
+                        intent.putExtra("CafeModel", getItem(position));
+                        startActivity(intent);
                     }
                 });
 

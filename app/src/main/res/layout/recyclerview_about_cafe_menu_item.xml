@@ -23,7 +23,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:textSize="14dp"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/colorMoreGray"
         android:singleLine="true"
         android:ellipsize="end"/>
 </RelativeLayout>

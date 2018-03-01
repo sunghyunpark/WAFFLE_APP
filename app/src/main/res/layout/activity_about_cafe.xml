@@ -284,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorMoreGray"
                         android:textSize="14dp"
                         android:ellipsize="end"
                         android:layout_marginRight="50dp"/>
@@ -308,7 +308,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorMoreGray"
                         android:singleLine="true"
                         android:textSize="14dp"
                         android:ellipsize="end"
@@ -333,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorMoreGray"
                         android:textSize="14dp"
                         android:singleLine="true"
                         android:ellipsize="end"
@@ -368,7 +368,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_centerVertical="true"
                         android:textSize="14dp"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorMoreGray"
                         android:textStyle="bold"
                         android:text="@string/about_cafe_open_txt"/>
 
@@ -395,7 +395,7 @@
                         android:layout_marginLeft="50dp"
                         android:layout_centerVertical="true"
                         android:textSize="14dp"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorMoreGray"
                         android:textStyle="bold"
                         android:text="@string/about_cafe_close_txt"/>
                     <TextView
@@ -423,7 +423,7 @@
                         android:layout_centerVertical="true"
                         android:textStyle="bold"
                         android:textSize="14dp"
-                        android:textColor="@color/colorGray" />
+                        android:textColor="@color/colorMoreGray" />
                 </RelativeLayout>
             </LinearLayout>
 
