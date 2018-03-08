@@ -48,11 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tab3_txt) TextView tab3_tv;
     @BindView(R.id.tab4_txt) TextView tab4_tv;
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
+
 
     @Override
     public void onStop(){
@@ -96,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
             }};
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     /**

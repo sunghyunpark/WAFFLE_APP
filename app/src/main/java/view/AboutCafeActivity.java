@@ -85,7 +85,6 @@ public class AboutCafeActivity extends AppCompatActivity {
     @BindView(R.id.share_cancel_btn) Button shareCancelBtn;
 
     private BottomSheetBehavior bottomSheetBehavior;
-    private ArrayList<String> cafePhotoList;
     //RecyclerView
     CommentRecyclerAdapter comment_adapter;
     MenuRecyclerAdapter menu_adapter;
@@ -281,7 +280,7 @@ public class AboutCafeActivity extends AppCompatActivity {
      * @param cafe_id
      */
     private void LoadCafeEtcInfo(String uid, String cafe_id){
-        cafePhotoList = new ArrayList<>();
+        final ArrayList cafePhotoList = new ArrayList<>();
 
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -567,7 +566,7 @@ public class AboutCafeActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+cafeModel.getCafePhoneNum()));
         startActivity(intent);
     }
-    /*
+
     @OnClick(R.id.cafe_like_btn) void cafeLike(){
         cafeLikeState = !cafeLikeState;
         SetLikeBtn(cafeLikeState);
@@ -575,24 +574,25 @@ public class AboutCafeActivity extends AppCompatActivity {
 
         PostCafeLike(UserModel.getInstance().getUid(), cafeModel.getCafeId(), state);
     }
-    @OnClick({R.id.comment_btn_layout, R.id.go_comment_btn}) void goComment(){
-        Intent intent = new Intent(getApplicationContext(), WriteCommentActivity.class);
-        intent.putExtra("user_id", UserModel.getInstance().getUid());
-        intent.putExtra("cafe_id", cafeModel.getCafeId());
-        startActivity(intent);
-    }
-    @OnClick(R.id.go_all_comment_btn) void goAllComment(){
-        Intent intent = new Intent(getApplicationContext(), AboutCafeCommentActivity.class);
-        intent.putExtra("cafe_id", cafeModel.getCafeId());
-        intent.putExtra("cafe_name", cafeModel.getCafeName());
-        startActivity(intent);
-    }
-    @OnClick(R.id.cafe_etc_photo_btn) void goEtcPhoto(){
-        Intent intent = new Intent(getApplicationContext(), PhotoSelectActivity.class);
-        intent.putExtra("photoList", cafePhotoList);
-        intent.putExtra("cafeName", cafeModel.getCafeName());
-        startActivity(intent);
-    }*/
+    /*
+   @OnClick({R.id.comment_btn_layout, R.id.go_comment_btn}) void goComment(){
+       Intent intent = new Intent(getApplicationContext(), WriteCommentActivity.class);
+       intent.putExtra("user_id", UserModel.getInstance().getUid());
+       intent.putExtra("cafe_id", cafeModel.getCafeId());
+       startActivity(intent);
+   }
+   @OnClick(R.id.go_all_comment_btn) void goAllComment(){
+       Intent intent = new Intent(getApplicationContext(), AboutCafeCommentActivity.class);
+       intent.putExtra("cafe_id", cafeModel.getCafeId());
+       intent.putExtra("cafe_name", cafeModel.getCafeName());
+       startActivity(intent);
+   }
+   @OnClick(R.id.cafe_etc_photo_btn) void goEtcPhoto(){
+       Intent intent = new Intent(getApplicationContext(), PhotoSelectActivity.class);
+       intent.putExtra("photoList", cafePhotoList);
+       intent.putExtra("cafeName", cafeModel.getCafeName());
+       startActivity(intent);
+   }*/
     @OnClick(R.id.share_layout) void goShare(){
         bottom_sheet_dim_layout.setVisibility(View.VISIBLE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
