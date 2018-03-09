@@ -4,6 +4,7 @@ import api.response.CafeEtcInfoResponse;
 import api.response.CafeResponse;
 import api.response.CommonResponse;
 import api.response.LoginResponse;
+import api.response.MyCommentResponse;
 import api.response.MyFavoriteCntResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -104,5 +105,14 @@ public interface ApiInterface {
      */
     @GET("cafe/my_favorite.php")
     Call<MyFavoriteCntResponse> GetMyFavoriteCnt(@Query("tag") String tag, @Query("uid") String uid);
+
+    /**
+     * Get My Comment Cafe List API
+     * @param tag -> my_comment_cafe
+     * @param uid
+     * @return
+     */
+    @GET("cafe/my_favorite.php")
+    Call<MyCommentResponse> GetMyCommentCafeList(@Query("tag") String tag, @Query("uid") String uid);
 
 }

@@ -26,7 +26,8 @@
         <activity android:name="view.LoadingDialog" />
         <activity android:name="view.AboutCafeActivity" />
         <activity android:name="view.WriteCommentActivity" />
-        <activity android:name="view.AboutCafeCommentActivity"></activity>
+        <activity android:name="view.AboutCafeCommentActivity" />
+        <activity android:name="view.MyCommentCafeActivity"></activity>
     </application>
 
 </manifest>

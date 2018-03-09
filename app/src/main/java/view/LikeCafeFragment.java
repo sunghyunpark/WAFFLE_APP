@@ -1,5 +1,6 @@
 package view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +21,7 @@ import api.response.MyFavoriteCntResponse;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import model.UserModel;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -113,11 +115,10 @@ public class LikeCafeFragment extends Fragment {
     @OnClick(R.id.my_favorite_cafe_img) void goFavoriteCafe(){
         Intent intent = new Intent(getActivity(), MyFavoriteCafeActivity.class);
         startActivity(intent);
-    }
+    }*/
     @OnClick(R.id.my_comment_cafe_img) void goCommentCafe(){
         Intent intent = new Intent(getActivity(), MyCommentCafeActivity.class);
         startActivity(intent);
     }
 
-*/
 }

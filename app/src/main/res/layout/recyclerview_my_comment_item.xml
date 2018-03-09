@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="140dp"
+    android:id="@+id/comment_layout">
+
+    <ImageView
+        android:id="@+id/cafe_profile_img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cafe_profile_img"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/cafe_profile_img">
+
+        <TextView
+            android:id="@+id/cafe_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cafeName"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:textSize="17dp"/>
+
+
+        <TextView
+            android:id="@+id/user_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="박성현"
+            android:layout_below="@+id/cafe_name_txt"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/created_at_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/cafe_name_txt"
+            android:layout_marginRight="10dp"
+            android:textSize="13dp"
+            android:textColor="@color/colorTextHintGray"/>
+
+        <TextView
+            android:id="@+id/comment_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textColor="@color/colorGray"
+            android:layout_below="@+id/user_name_txt"
+            android:layout_marginTop="7dp"
+            android:maxLines="4"
+            android:paddingRight="10dp"
+            android:ellipsize="end"/>
+
+    </RelativeLayout>
+    <!--구분선-->
+    <LinearLayout
+        android:id="@+id/layout_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="#EEEEEE"></LinearLayout>
+</RelativeLayout>

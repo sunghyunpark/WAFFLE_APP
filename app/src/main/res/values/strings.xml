@@ -70,4 +70,11 @@
     <string name="like_cafe_my_favorite_cafe_name">최근 좋아요한 맛집 : </string>
     <string name="like_cafe_my_comment_cafe_time">최근 평가한 시간 : </string>
     <string name="like_cafe_my_comment_cafe_name">최근 평가한 맛집 : </string>
+
+    <!--my favorite cafe-->
+    <string name="my_favorite_cafe_activity_title_txt">내가 좋아요한 맛집</string>
+    <string name="my_favorite_cafe_activity_empty_txt">좋아요한 맛집이 없습니다.</string>
+    <!--my comment cafe-->
+    <string name="my_comment_cafe_activity_title_txt">내가 평가한 리뷰</string>
+    <string name="my_comment_cafe_activity_empty_txt">평가한 리뷰가 없습니다.</string>
 </resources>
