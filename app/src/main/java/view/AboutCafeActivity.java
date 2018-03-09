@@ -581,13 +581,14 @@ public class AboutCafeActivity extends AppCompatActivity {
        intent.putExtra("cafe_id", cafeModel.getCafeId());
        startActivity(intent);
    }
-    /*
+
     @OnClick(R.id.go_all_comment_btn) void goAllComment(){
         Intent intent = new Intent(getApplicationContext(), AboutCafeCommentActivity.class);
         intent.putExtra("cafe_id", cafeModel.getCafeId());
         intent.putExtra("cafe_name", cafeModel.getCafeName());
         startActivity(intent);
     }
+    /*
     @OnClick(R.id.cafe_etc_photo_btn) void goEtcPhoto(){
         Intent intent = new Intent(getApplicationContext(), PhotoSelectActivity.class);
         intent.putExtra("photoList", cafePhotoList);

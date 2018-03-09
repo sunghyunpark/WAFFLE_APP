@@ -5,20 +5,11 @@
     android:paddingTop="15dp"
     android:paddingBottom="15dp">
 
-    <ImageView
-        android:id="@+id/user_profile_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_centerVertical="true"/>
-
     <TextView
         android:id="@+id/user_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/user_profile_img"
-        android:layout_alignTop="@+id/user_profile_img"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:textColor="@color/colorBlack"
         android:textSize="15dp"
         android:textStyle="bold"/>
@@ -36,7 +27,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_name_txt"
-        android:layout_toRightOf="@+id/user_profile_img"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="15dp"/>
 
 </RelativeLayout>
