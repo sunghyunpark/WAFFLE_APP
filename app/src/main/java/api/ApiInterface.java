@@ -4,6 +4,7 @@ import api.response.CafeEtcInfoResponse;
 import api.response.CafeResponse;
 import api.response.CommonResponse;
 import api.response.LoginResponse;
+import api.response.MyFavoriteCntResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -95,5 +96,13 @@ public interface ApiInterface {
     @POST("cafe/cafe_info.php")
     Call<CommonResponse> WriteCafeComment(@Field("tag") String tag, @Field("uid") String uid, @Field("cafe_id") String cafe_id, @Field("comment_text") String comment_text);
 
+    /**
+     * Like Cafe Count API
+     * @param tag -> my_favorite_cafe_cnt
+     * @param uid
+     * @return
+     */
+    @GET("cafe/my_favorite.php")
+    Call<MyFavoriteCntResponse> GetMyFavoriteCnt(@Query("tag") String tag, @Query("uid") String uid);
 
 }

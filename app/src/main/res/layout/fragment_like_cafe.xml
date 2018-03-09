@@ -1,13 +1,209 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="view.CafeListFragment">
+    android:orientation="vertical"
+    tools:context="view.LikeCafeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/app_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="like cafe" />
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+    <!--구분선-->
+    <LinearLayout
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/app_title_bar"
+        android:background="@color/colorDivider"></LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/like_cafe_my_favorite_cafe_title"
+                android:textColor="#37474F"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/recent_favorite_created_at_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="13dp"
+                android:textColor="@color/colorTextHintGray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/my_favorite_cafe_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/like_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/like_cafe_like_img"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/like_cnt_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/like_img"
+                    android:text="0"
+                    android:textSize="14dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/colorWhite"/>
+
+                <TextView
+                    android:id="@+id/my_favorite_main_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/like_cafe_my_favorite_cafe_title"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="25dp"/>
+
+                <TextView
+                    android:id="@+id/recent_favorite_cafe_name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_favorite_main_txt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!--구분선-->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:background="#9E9E9E"></LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/like_cafe_my_comment_cafe_title"
+                android:textColor="#37474F"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/recent_comment_created_at_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:textSize="13dp"
+                android:textColor="@color/colorTextHintGray"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/my_comment_cafe_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/comment_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/like_cafe_comment_img"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/comment_cnt_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/comment_img"
+                    android:text="0"
+                    android:textSize="14dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/colorWhite"/>
+
+                <TextView
+                    android:id="@+id/my_comment_main_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/like_cafe_my_comment_cafe_title"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="25dp"/>
+
+                <TextView
+                    android:id="@+id/recent_comment_cafe_name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_comment_main_txt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -62,4 +62,12 @@
     <string name="write_comment_activity_title_txt">리뷰 쓰기</string>
     <string name="write_comment_activity_edit_box_hint_txt">리뷰를 작성해 주세요.(150자 이내)</string>
     <string name="write_comment_activity_error_empty_comment_txt">내용을 입력해주세요.</string>
+
+    <!--LikeCafe Fragment-->
+    <string name="like_cafe_my_favorite_cafe_title">내가 좋아요한 맛집</string>
+    <string name="like_cafe_my_comment_cafe_title">내가 평가한 리뷰</string>
+    <string name="like_cafe_my_favorite_cafe_time">최근 좋아요한 시간 : </string>
+    <string name="like_cafe_my_favorite_cafe_name">최근 좋아요한 맛집 : </string>
+    <string name="like_cafe_my_comment_cafe_time">최근 평가한 시간 : </string>
+    <string name="like_cafe_my_comment_cafe_name">최근 평가한 맛집 : </string>
 </resources>
