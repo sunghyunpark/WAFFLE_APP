@@ -57,4 +57,9 @@
     <string name="share_bottom_sheet_facebook_txt">Facebook</string>
     <string name="share_bottom_sheet_other_txt">기타</string>
     <string name="share_bottom_sheet_cancel_txt">취소</string>
+
+    <!--write comment-->
+    <string name="write_comment_activity_title_txt">리뷰 쓰기</string>
+    <string name="write_comment_activity_edit_box_hint_txt">리뷰를 작성해 주세요.(150자 이내)</string>
+    <string name="write_comment_activity_error_empty_comment_txt">내용을 입력해주세요.</string>
 </resources>

@@ -126,33 +126,33 @@ public class MainActivity extends AppCompatActivity {
      * @param tabId -> Tab Id
      */
     private void InitTabIcon(int tabId){
-        tab1_iv.setBackgroundResource(R.mipmap.ic_launcher);
-        tab1_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
-        tab2_iv.setBackgroundResource(R.mipmap.ic_launcher);
-        tab2_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
-        tab3_iv.setBackgroundResource(R.mipmap.ic_launcher);
-        tab3_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
-        tab4_iv.setBackgroundResource(R.mipmap.ic_launcher);
-        tab4_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
+        tab1_iv.setBackgroundResource(R.mipmap.tab_location_img);
+        tab1_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorMoreGray));
+        tab2_iv.setBackgroundResource(R.mipmap.tab_hot_img);
+        tab2_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorMoreGray));
+        tab3_iv.setBackgroundResource(R.mipmap.tab_like_img);
+        tab3_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorMoreGray));
+        tab4_iv.setBackgroundResource(R.mipmap.tab_setting_img);
+        tab4_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorMoreGray));
 
         switch (tabId){
             case R.id.tab_1:
-                tab1_iv.setBackgroundResource(R.mipmap.ic_launcher);
+                tab1_iv.setBackgroundResource(R.mipmap.tab_selected_location_img);
                 tab1_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 break;
 
             case R.id.tab_2:
-                tab2_iv.setBackgroundResource(R.mipmap.ic_launcher);
+                tab2_iv.setBackgroundResource(R.mipmap.tab_selected_hot_img);
                 tab2_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 break;
 
             case R.id.tab_3:
-                tab3_iv.setBackgroundResource(R.mipmap.ic_launcher);
+                tab3_iv.setBackgroundResource(R.mipmap.tab_selected_like_img);
                 tab3_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 break;
 
             case R.id.tab_4:
-                tab4_iv.setBackgroundResource(R.mipmap.ic_launcher);
+                tab4_iv.setBackgroundResource(R.mipmap.tab_selected_setting_img);
                 tab4_tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 break;
 

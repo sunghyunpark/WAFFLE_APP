@@ -83,5 +83,17 @@ public interface ApiInterface {
     @POST("cafe/cafe_info.php")
     Call<CommonResponse> LikeCafe(@Field("tag") String tag, @Field("uid") String uid, @Field("cafe_id") String cafe_id, @Field("like_state") String state);
 
+    /**
+     * Write Cafe Comment API
+     * @param tag -> write_cafe_comment
+     * @param uid
+     * @param cafe_id
+     * @param comment_text
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("cafe/cafe_info.php")
+    Call<CommonResponse> WriteCafeComment(@Field("tag") String tag, @Field("uid") String uid, @Field("cafe_id") String cafe_id, @Field("comment_text") String comment_text);
+
 
 }
