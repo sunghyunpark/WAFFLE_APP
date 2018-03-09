@@ -115,4 +115,13 @@ public interface ApiInterface {
     @GET("cafe/my_favorite.php")
     Call<MyCommentResponse> GetMyCommentCafeList(@Query("tag") String tag, @Query("uid") String uid);
 
+    /**
+     * Get My Favorite Cafe List API
+     * @param tag -> my_favorite_cafe
+     * @param uid
+     * @return
+     */
+    @GET("cafe/my_favorite.php")
+    Call<CafeResponse> GetMyFavoriteCafeList(@Query("tag") String tag, @Query("uid") String uid);
+
 }

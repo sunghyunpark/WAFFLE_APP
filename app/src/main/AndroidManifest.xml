@@ -27,7 +27,8 @@
         <activity android:name="view.AboutCafeActivity" />
         <activity android:name="view.WriteCommentActivity" />
         <activity android:name="view.AboutCafeCommentActivity" />
-        <activity android:name="view.MyCommentCafeActivity"></activity>
+        <activity android:name="view.MyCommentCafeActivity" />
+        <activity android:name="view.MyFavoriteCafeActivity"></activity>
     </application>
 
 </manifest>

@@ -111,11 +111,10 @@ public class LikeCafeFragment extends Fragment {
         });
     }
 
-    /*
     @OnClick(R.id.my_favorite_cafe_img) void goFavoriteCafe(){
         Intent intent = new Intent(getActivity(), MyFavoriteCafeActivity.class);
         startActivity(intent);
-    }*/
+    }
     @OnClick(R.id.my_comment_cafe_img) void goCommentCafe(){
         Intent intent = new Intent(getActivity(), MyCommentCafeActivity.class);
         startActivity(intent);
