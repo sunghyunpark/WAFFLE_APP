@@ -166,28 +166,44 @@ public class MainActivity extends AppCompatActivity {
 
         switch (v.getId()){
             case R.id.tab_1:
-                currentPage = R.id.tab_1;
-                fragment = new CafeListFragment();
-                bundle.putString("KEY_MSG", "replace");
-                fragment.setArguments(bundle);
+                if(currentPage == R.id.tab_1){
+                    return;
+                }else{
+                    currentPage = R.id.tab_1;
+                    fragment = new CafeListFragment();
+                    bundle.putString("KEY_MSG", "replace");
+                    fragment.setArguments(bundle);
+                }
                 break;
             case R.id.tab_2:
-                currentPage = R.id.tab_2;
-                fragment = new HotFragment();
-                bundle.putString("KEY_MSG", "replace");
-                fragment.setArguments(bundle);
+                if(currentPage == R.id.tab_2){
+                    return;
+                }else{
+                    currentPage = R.id.tab_2;
+                    fragment = new HotFragment();
+                    bundle.putString("KEY_MSG", "replace");
+                    fragment.setArguments(bundle);
+                }
                 break;
             case R.id.tab_3:
-                currentPage = R.id.tab_3;
-                fragment = new LikeCafeFragment();
-                bundle.putString("KEY_MSG", "replace");
-                fragment.setArguments(bundle);
+                if(currentPage == R.id.tab_3){
+                    return;
+                }else{
+                    currentPage = R.id.tab_3;
+                    fragment = new LikeCafeFragment();
+                    bundle.putString("KEY_MSG", "replace");
+                    fragment.setArguments(bundle);
+                }
                 break;
             case R.id.tab_4:
-                currentPage = R.id.tab_4;
-                fragment = new SettingFragment();
-                bundle.putString("KEY_MSG", "replace");
-                fragment.setArguments(bundle);
+                if(currentPage == R.id.tab_4){
+                    return;
+                }else{
+                    currentPage = R.id.tab_4;
+                    fragment = new SettingFragment();
+                    bundle.putString("KEY_MSG", "replace");
+                    fragment.setArguments(bundle);
+                }
                 break;
         }
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
