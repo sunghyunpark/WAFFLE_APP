@@ -25,7 +25,7 @@
             android:paddingRight="30dp"
             android:layout_toRightOf="@+id/cafe_thumb_img"
             android:textSize="17dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"/>
 
         <TextView
