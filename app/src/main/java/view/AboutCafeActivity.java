@@ -1,5 +1,6 @@
 package view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -602,5 +603,12 @@ public class AboutCafeActivity extends AppCompatActivity {
     @OnClick({R.id.bottom_sheet_dim_layout, R.id.share_cancel_btn}) void cancelShare(){
         bottom_sheet_dim_layout.setVisibility(View.GONE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
+    @OnClick(R.id.about_cafe_address_txt) void copyAddress(){
+        String addressStr = cafe_address_tv.getText().toString();
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("LABEL", addressStr);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getApplicationContext(), "클립보드에 복사했습니다.", Toast.LENGTH_SHORT).show();
     }
 }

@@ -263,6 +263,15 @@ public class CafeListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 }
 
                 VHitem.cafe_address_tv.setText(currentItem.getCafeAddress());
+                VHitem.cafe_address_tv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("LABEL", currentItem.getCafeAddress());
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(getActivity(), "클립보드에 복사했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 VHitem.cafe_phone_tv.setText(currentItem.getCafePhoneNum());
 
                 VHitem.cafe_phone_btn.setOnClickListener(new View.OnClickListener() {
