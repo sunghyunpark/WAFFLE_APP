@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.facebook.FacebookSdk;
+
 /**
  * Created by SungHyun on 2018-02-21.
  */
@@ -22,6 +24,8 @@ public class WaffleApplication extends Application{
         display = ((WindowManager)getApplicationContext().getSystemService(getApplicationContext().WINDOW_SERVICE)).getDefaultDisplay();
         DISPLAY_HEIGHT = display.getHeight();
         DISPLAY_WIDTH = display.getWidth();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
     }
 
     @Override

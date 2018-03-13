@@ -44,12 +44,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp">
-            <Button
+            <com.facebook.login.widget.LoginButton
                 android:id="@+id/facebook_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textSize="15dp"
                 android:background="@drawable/intro_fb_btn_shape"
                 android:textColor="@color/colorWhite"
                 android:text="@string/facebook_login_txt"/>

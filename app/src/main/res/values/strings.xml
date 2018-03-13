@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">WAFFLE</string>
 
+    <!-- Facebook data-->
+    <string name="facebook_app_id">2006712286268791</string>
+    <string name="fb_login_protocol_scheme">fb2006712286268791</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

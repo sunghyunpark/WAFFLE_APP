@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.cafemobile.waffle.R;
 import com.cafemobile.waffle.SessionManager;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -85,6 +86,7 @@ public class SettingFragment extends Fragment {
                 mAuth.signOut();    //Firebase Logout
                 sessionManager.setLogin(false);
                 realmUtil.DeleteUserData();
+                LoginManager.getInstance().logOut();
 
             }
         });
