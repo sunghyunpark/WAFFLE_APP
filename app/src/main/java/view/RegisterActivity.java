@@ -170,8 +170,6 @@ public class RegisterActivity extends AppCompatActivity {
             loadingDialog.show();
             createAccount(emailStr, passwordStr, nameStr);
         }
-
     }
-
 
 }
