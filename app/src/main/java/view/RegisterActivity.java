@@ -60,8 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
             LoginPresenter loginPresenter = new LoginPresenter(getApplicationContext());
             loginPresenter.register(emailStr, passwordStr, nameStr);
         }
-
     }
-
 
 }
