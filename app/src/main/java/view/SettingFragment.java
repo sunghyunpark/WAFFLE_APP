@@ -1,5 +1,7 @@
 package view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -7,20 +9,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cafemobile.waffle.R;
+import com.cafemobile.waffle.SessionManager;
+import com.google.firebase.auth.FirebaseAuth;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import database.RealmUtil;
 import model.UserModel;
-import presenter.LoginPresenter;
 
 public class SettingFragment extends Fragment {
+
+    private SessionManager sessionManager;
+    private FirebaseAuth mAuth;
+    private RealmUtil realmUtil;
 
     View v;
     @BindView(R.id.user_name_txt) TextView user_name_tv;
@@ -48,6 +53,10 @@ public class SettingFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, v);
 
+        mAuth = FirebaseAuth.getInstance();
+        sessionManager = new SessionManager(getContext());
+        realmUtil = new RealmUtil(getContext());
+
         return v;
     }
 
@@ -66,8 +75,27 @@ public class SettingFragment extends Fragment {
     }
 
     @OnClick(R.id.logout_btn) void logoutClicked(){
-        LoginPresenter loginPresenter = new LoginPresenter(getContext());
-        loginPresenter.logout();
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle("로그아웃");
+        alert.setMessage("정말 로그아웃 하시겠습니까?");
+        alert.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //sessionManager.setLogin(false);
+                //realmUtil.DeleteUserData();
+                mAuth.signOut();    //Firebase Logout
+                sessionManager.setLogin(false);
+                realmUtil.DeleteUserData();
+
+            }
+        });
+        alert.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+
+                    }
+                });
+        alert.show();
     }
 
 }
