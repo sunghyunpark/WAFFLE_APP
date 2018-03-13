@@ -99,6 +99,8 @@ public class RegisterActivity extends AppCompatActivity {
                             postUserDataForRegister(mAuth.getUid(), name);
 
                         }else{
+                            if(loadingDialog != null)
+                                loadingDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -127,6 +129,8 @@ public class RegisterActivity extends AppCompatActivity {
                     goMainActivity();
                     Toast.makeText(getApplicationContext(), loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
                 }else{
+                    if(loadingDialog != null)
+                        loadingDialog.dismiss();
                     Toast.makeText(getApplicationContext(), loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
                 }
             }
@@ -135,6 +139,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 // Log error here since request failed
                 Log.e("tag", t.toString());
+                if(loadingDialog != null)
+                    loadingDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "네트워크 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
             }
         });
