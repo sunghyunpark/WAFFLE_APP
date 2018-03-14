@@ -29,6 +29,13 @@ import view.IntroActivity;
 import view.LikeCafeFragment;
 import view.SettingFragment;
 
+/**
+ * 1. 앱 실행 시 MainActivity 가 실행된다
+ * 2. mAuth 객체를 통해 Firebase에서 로그인 중인 유저가 있는지 판별
+ * 3. 로그인 상태 > Realm에 저장된 user 데이터를 싱글톤 객체에 저장
+ * 4. 미로그인 상태 > Intro 화면으로 이동된다.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "MainActivity";
@@ -48,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tab3_txt) TextView tab3_tv;
     @BindView(R.id.tab4_txt) TextView tab4_tv;
 
-
-
     @Override
     public void onStop(){
         super.onStop();
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();    // Firebase 객체 생성
 
         final SessionManager sessionManager = new SessionManager(getApplicationContext());
 
@@ -73,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null || sessionManager.isLoggedIn()) {
-                    // User is signed in
+                    /*
+                    Firebase에서 로그인된 User 가 있는 경우 Realm에 저장된 데이터를 싱글톤에 저장
+                     */
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Toast.makeText(getApplicationContext(), "Sign In Success From MainActivity", Toast.LENGTH_SHORT).show();
 
@@ -85,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
                     android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
                     fragmentTransaction.replace(R.id.main_frame, new CafeListFragment());
                     fragmentTransaction.commit();
-                } else { // User is signed out
+                } else {
+                    /*
+                    Firebase에 로그인된 User가 없는 경우 Intro 화면으로 이동
+                     */
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                     Toast.makeText(getApplicationContext(), "Not exist user data from firebase", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), IntroActivity.class));
