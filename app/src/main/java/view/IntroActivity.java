@@ -53,8 +53,6 @@ public class IntroActivity extends AppCompatActivity {
     Bitmap bitmap;
     @BindView(R.id.background_layout) ViewGroup background_layout;
     @BindView(R.id.facebook_btn) LoginButton mSigninFacebookButton;
-    @BindView(R.id.register_btn) Button registerBtn;
-    @BindView(R.id.login_btn) Button loginBtn;
 
     CallbackManager mFacebookCallbackManager;
     private RealmUtil realmUtil;
@@ -87,6 +85,9 @@ public class IntroActivity extends AppCompatActivity {
         setBackground();
     }
 
+    /**
+     * init
+     */
     private void init(){
         loadingDialog = new LoadingDialog(this);
         loadingDialog.getWindow()
@@ -107,6 +108,11 @@ public class IntroActivity extends AppCompatActivity {
         background_layout.setBackground(d);
     }
 
+    /**
+     * Firebase 에서 로그인 된 User의 데이터를 가져와 postUserDataForRegister를 통해 서버에 저장 시도한다.
+     * 서버에 저장 시도 시 이미 저장된 유저이면 로그인 하도록 한다.
+     * @param token
+     */
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -148,10 +154,16 @@ public class IntroActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 if(!loginResponse.isError()){
+                    /*
+                    서버에 User 데이터가 없는 경우 새로 등록
+                     */
                     realmUtil.InsertUserData(uid, LOGIN_TYPE_FACEBOOK, mAuth.getCurrentUser().getEmail(), name, "", loginResponse.getUser().getCreatedAt());
                     goMainActivity();
                     //Toast.makeText(getApplicationContext(), loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
                 }else{
+                    /*
+                    서버에 User 데이터가 있는 경우 로그인 시도
+                     */
                     postUserDataForLogin(uid);
                     //Toast.makeText(getApplicationContext(), loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
                 }
@@ -175,6 +187,10 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * 서버에서 User 데이터가 존재하는지 확인 후 로그인한다.
+     * @param uid
+     */
     private void postUserDataForLogin(final String uid){
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -187,9 +203,8 @@ public class IntroActivity extends AppCompatActivity {
                 if(!loginResponse.isError()){
                     realmUtil.InsertUserData(uid, LOGIN_TYPE_FACEBOOK, mAuth.getCurrentUser().getEmail(), loginResponse.getUser().getName(), loginResponse.getUser().getPhoneNum(), loginResponse.getUser().getCreatedAt());
                     goMainActivity();
-                    //Toast.makeText(getApplicationContext(), loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
                 }else{
-                    //Toast.makeText(getApplicationContext(), loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
+                    
                 }
             }
 
