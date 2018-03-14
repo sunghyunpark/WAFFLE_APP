@@ -126,15 +126,12 @@ public class IntroActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             postUserDataForRegister(user.getUid(), user.getDisplayName());
-
-                            //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
                     }
                 });
     }
@@ -159,13 +156,11 @@ public class IntroActivity extends AppCompatActivity {
                      */
                     realmUtil.InsertUserData(uid, LOGIN_TYPE_FACEBOOK, mAuth.getCurrentUser().getEmail(), name, "", loginResponse.getUser().getCreatedAt());
                     goMainActivity();
-                    //Toast.makeText(getApplicationContext(), loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
                 }else{
                     /*
                     서버에 User 데이터가 있는 경우 로그인 시도
                      */
                     postUserDataForLogin(uid);
-                    //Toast.makeText(getApplicationContext(), loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
                 }
             }
 

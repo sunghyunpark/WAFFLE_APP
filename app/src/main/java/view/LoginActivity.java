@@ -33,8 +33,6 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private final static String LOGIN_TYPE_EMAIL = "email";
-    private final static String LOGIN_TYPE_FACEBOOK = "facebook";
-    private final static String LOGIN_TYPE_KAKAO = "kakao";
 
     private LoadingDialog loadingDialog;
     private SessionManager sessionManager;
@@ -143,6 +141,10 @@ public class LoginActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.back_btn) void goBack(){
+        finish();
     }
 
     @OnClick(R.id.login_btn) void loginClicked(){

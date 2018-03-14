@@ -34,8 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private final static String TAG = "RegisterActivity";
     private final static String LOGIN_TYPE_EMAIL = "email";
-    private final static String LOGIN_TYPE_FACEBOOK = "facebook";
-    private final static String LOGIN_TYPE_KAKAO = "kakao";
 
     private LoadingDialog loadingDialog;
     private SessionManager sessionManager;
@@ -101,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }else{
                             if(loadingDialog != null)
                                 loadingDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Authentication failed",
+                            Toast.makeText(getApplicationContext(), "이미 동일한 계정이 존재합니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -153,6 +151,10 @@ public class RegisterActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.back_btn) void goBack(){
+        finish();
     }
 
     @OnClick(R.id.register_btn) void registerClicked(){

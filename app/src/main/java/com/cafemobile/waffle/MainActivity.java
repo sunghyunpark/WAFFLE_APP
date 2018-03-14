@@ -64,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -72,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();    // Firebase 객체 생성
 
         final SessionManager sessionManager = new SessionManager(getApplicationContext());
+
+        InitTabIcon(currentPage);
+
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, new CafeListFragment());
+        fragmentTransaction.commit();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -82,27 +95,17 @@ public class MainActivity extends AppCompatActivity {
                     Firebase에서 로그인된 User 가 있는 경우 Realm에 저장된 데이터를 싱글톤에 저장
                      */
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Toast.makeText(getApplicationContext(), "Sign In Success From MainActivity", Toast.LENGTH_SHORT).show();
 
                     setUserDataFromRealm();
-
-                    InitTabIcon(currentPage);
-
-                    android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_frame, new CafeListFragment());
-                    fragmentTransaction.commit();
                 } else {
                     /*
                     Firebase에 로그인된 User가 없는 경우 Intro 화면으로 이동
                      */
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Toast.makeText(getApplicationContext(), "Not exist user data from firebase", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), IntroActivity.class));
                     finish();
                 }
             }};
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
     /**
