@@ -30,9 +30,27 @@
         android:layout_below="@+id/app_title_bar"
         android:background="@color/colorDivider"></LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recomment_cafe_recyclerView"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/recommend_cafe_title_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#37474F"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:text="이런 카페는 어때요?"/>
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/recommend_pager"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

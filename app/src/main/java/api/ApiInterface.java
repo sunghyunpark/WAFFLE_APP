@@ -124,4 +124,14 @@ public interface ApiInterface {
     @GET("cafe/my_favorite.php")
     Call<CafeResponse> GetMyFavoriteCafeList(@Query("tag") String tag, @Query("uid") String uid);
 
+    /**
+     * Get Recommend Cafe List API
+     * @param tag -> recommend_cafe
+     * @return
+     */
+    @GET("cafe/cafe_info.php")
+    Call<CafeResponse> GetRecommendCafeList(@Query("tag") String tag);
+
+
+
 }
