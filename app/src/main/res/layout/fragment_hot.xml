@@ -30,4 +30,9 @@
         android:layout_below="@+id/app_title_bar"
         android:background="@color/colorDivider"></LinearLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recomment_cafe_recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
