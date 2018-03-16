@@ -5,8 +5,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,33 +16,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import api.ApiClient;
-import api.ApiInterface;
-import api.response.LoginResponse;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import database.RealmUtil;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import util.LoginManager;
 
 public class LoginActivity extends AppCompatActivity {
-
-    private final static String LOGIN_TYPE_EMAIL = "email";
 
     private LoadingDialog loadingDialog;
     private SessionManager sessionManager;
     private FirebaseAuth mAuth;
-    private RealmUtil realmUtil;
 
     @BindView(R.id.email_edit_box) EditText email_et;
     @BindView(R.id.password_edit_box) EditText password_et;
-    @BindView(R.id.login_btn) Button login_btn;
     @BindString(R.string.error_not_exist_input_txt) String notExistErrorStr;
     @BindString(R.string.register_error_input_email_txt) String inputEmailErrorStr;
     @BindString(R.string.register_error_input_pw_txt) String inputPwErrorStr;
+
+    LoginManager loginManager;
 
     @Override
     public void onStop(){
@@ -67,9 +57,10 @@ public class LoginActivity extends AppCompatActivity {
      * init
      */
     private void init(){
+        loginManager = new LoginManager(getApplicationContext());
+
         mAuth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(getApplicationContext());
-        realmUtil = new RealmUtil(getApplicationContext());
 
         loadingDialog = new LoadingDialog(this);
         loadingDialog.getWindow()
@@ -87,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            postUserDataForLogin(mAuth.getUid());
+                            loginManager.postUserDataForLogin(mAuth.getUid());
                         } else {
                             Toast.makeText(getApplicationContext(), "Sign In Fail From Firebase",
                                     Toast.LENGTH_SHORT).show();
@@ -96,42 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } } );
 
-    }
-
-    /**
-     * Firebase에서 uid 값을 받아온 뒤 Waffle 서버에서 user data 를 받아옴.
-     * Realm DB에 User data 저장
-     * @param uid
-     */
-    private void postUserDataForLogin(final String uid){
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<LoginResponse> call = apiService.loginApi("login", uid);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse = response.body();
-                if(!loginResponse.isError()){
-                    realmUtil.InsertUserData(uid, LOGIN_TYPE_EMAIL, mAuth.getCurrentUser().getEmail(), loginResponse.getUser().getName(), loginResponse.getUser().getPhoneNum(), loginResponse.getUser().getCreatedAt());
-                    goMainActivity();
-                    Toast.makeText(getApplicationContext(), loginResponse.getError_msg(), Toast.LENGTH_SHORT).show();
-                }else{
-                    if(loadingDialog != null)
-                        loadingDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), loginResponse.getError_msg(),Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-                if(loadingDialog != null)
-                    loadingDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "네트워크 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void goMainActivity(){

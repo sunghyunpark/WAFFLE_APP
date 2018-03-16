@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +38,7 @@ import view.SettingFragment;
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "MainActivity";
+
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private int currentPage = R.id.tab_1;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tab3_txt) TextView tab3_tv;
     @BindView(R.id.tab4_txt) TextView tab4_tv;
 
+    //Firebase 객체 제거
     @Override
     public void onStop(){
         super.onStop();
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Firebase 리스너 적용
     @Override
     public void onStart(){
         super.onStart();
@@ -77,9 +79,19 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();    // Firebase 객체 생성
 
-        final SessionManager sessionManager = new SessionManager(getApplicationContext());
+        //초기화
+        init();
 
+        //하단 탭 메뉴 초기화
         InitTabIcon(currentPage);
+
+    }
+
+    /**
+     * 초기화
+     */
+    private void init(){
+        final SessionManager sessionManager = new SessionManager(getApplicationContext());
 
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -91,16 +103,12 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null || sessionManager.isLoggedIn()) {
-                    /*
-                    Firebase에서 로그인된 User 가 있는 경우 Realm에 저장된 데이터를 싱글톤에 저장
-                     */
+                    //Firebase에서 로그인된 User 가 있는 경우 Realm에 저장된 데이터를 싱글톤에 저장
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
                     setUserDataFromRealm();
                 } else {
-                    /*
-                    Firebase에 로그인된 User가 없는 경우 Intro 화면으로 이동
-                     */
+                    //Firebase에 로그인된 User가 없는 경우 Intro 화면으로 이동
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                     startActivity(new Intent(getApplicationContext(), IntroActivity.class));
                     finish();

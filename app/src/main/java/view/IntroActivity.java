@@ -4,19 +4,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.cafemobile.waffle.MainActivity;
 import com.cafemobile.waffle.R;
-import com.cafemobile.waffle.SessionManager;
 import com.cafemobile.waffle.WaffleApplication;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -32,41 +28,25 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import api.ApiClient;
-import api.ApiInterface;
-import api.response.LoginResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import database.RealmUtil;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import util.LoginManager;
 
 public class IntroActivity extends AppCompatActivity {
 
     private static final String TAG = "IntroActivity";
-    private final static String LOGIN_TYPE_FACEBOOK = "facebook";
 
-    WaffleApplication waffleApplication;
-    Bitmap resized;
-    Bitmap bitmap;
+    private WaffleApplication waffleApplication;
+    private Bitmap resized;
+    private Bitmap bitmap;
     @BindView(R.id.background_layout) ViewGroup background_layout;
     @BindView(R.id.facebook_btn) LoginButton mSigninFacebookButton;
 
     CallbackManager mFacebookCallbackManager;
-    private RealmUtil realmUtil;
-    private SessionManager sessionManager;
     private FirebaseAuth mAuth;
-    private LoadingDialog loadingDialog;
+    LoginManager loginManager;
 
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        if(loadingDialog != null)
-            loadingDialog.dismiss();
-    }
 
     @Override
     protected void onDestroy(){
@@ -89,14 +69,11 @@ public class IntroActivity extends AppCompatActivity {
      * init
      */
     private void init(){
-        loadingDialog = new LoadingDialog(this);
-        loadingDialog.getWindow()
-                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        loginManager = new LoginManager(getApplicationContext());
 
         waffleApplication = (WaffleApplication)getApplicationContext();
         mAuth = FirebaseAuth.getInstance();
-        sessionManager = new SessionManager(getApplicationContext());
-        realmUtil = new RealmUtil(getApplicationContext());
     }
 
     private void setBackground(){
@@ -125,7 +102,7 @@ public class IntroActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            postUserDataForRegister(user.getUid(), user.getDisplayName());
+                            loginManager.postUserDataForRegister(LoginManager.LOGIN_TYPE_FACEBOOK, user.getUid(), user.getDisplayName());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -136,88 +113,12 @@ public class IntroActivity extends AppCompatActivity {
                 });
     }
 
-    /**
-     * facebook 로그인 시 처음엔 register를 시도 > DB에 존재하는 uid가 있는 경우 로그인으로 시도한다.
-     * @param uid
-     * @param name
-     */
-    private void postUserDataForRegister(final String uid, final String name){
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<LoginResponse> call = apiService.registerApi("register", uid, name, "N");
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse = response.body();
-                if(!loginResponse.isError()){
-                    /*
-                    서버에 User 데이터가 없는 경우 새로 등록
-                     */
-                    realmUtil.InsertUserData(uid, LOGIN_TYPE_FACEBOOK, mAuth.getCurrentUser().getEmail(), name, "", loginResponse.getUser().getCreatedAt());
-                    goMainActivity();
-                }else{
-                    /*
-                    서버에 User 데이터가 있는 경우 로그인 시도
-                     */
-                    postUserDataForLogin(uid);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-                Toast.makeText(getApplicationContext(), "네트워크 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void goMainActivity(){
-        sessionManager.setLogin(true);
-
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    /**
-     * 서버에서 User 데이터가 존재하는지 확인 후 로그인한다.
-     * @param uid
-     */
-    private void postUserDataForLogin(final String uid){
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<LoginResponse> call = apiService.loginApi("login", uid);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse = response.body();
-                if(!loginResponse.isError()){
-                    realmUtil.InsertUserData(uid, LOGIN_TYPE_FACEBOOK, mAuth.getCurrentUser().getEmail(), loginResponse.getUser().getName(), loginResponse.getUser().getPhoneNum(), loginResponse.getUser().getCreatedAt());
-                    goMainActivity();
-                }else{
-                    
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-                Toast.makeText(getApplicationContext(), "네트워크 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     /**
      * Email Register Activity 로 이동
@@ -236,7 +137,6 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.facebook_btn) void facebookClick(){
-        loadingDialog.show();
         /*
          * Facebook Login
          */
