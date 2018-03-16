@@ -68,6 +68,7 @@
     <string name="write_comment_activity_error_empty_comment_txt">내용을 입력해주세요.</string>
 
     <!--LikeCafe Fragment-->
+    <string name="like_cafe_fragment_title_txt">좋아요</string>
     <string name="like_cafe_my_favorite_cafe_title">내가 좋아요한 맛집</string>
     <string name="like_cafe_my_comment_cafe_title">내가 평가한 리뷰</string>
     <string name="like_cafe_my_favorite_cafe_time">최근 좋아요한 시간 : </string>
@@ -92,5 +93,8 @@
     <string name="help2_txt">개인정보 취급 방침</string>
     <string name="help3_txt">버전 정보</string>
     <string name="logout_btn_txt">로그아웃</string>
+
+    <!--like cafe fragment-->
+    <string name="hot_fragment_title_txt">HOT</string>
 
 </resources>

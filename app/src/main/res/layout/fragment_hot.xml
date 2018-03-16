@@ -1,13 +1,33 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="view.CafeListFragment">
+    android:orientation="vertical"
+    tools:context="view.LikeCafeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/app_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hot" />
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hot_fragment_title_txt"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+    <!--구분선-->
+    <LinearLayout
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/app_title_bar"
+        android:background="@color/colorDivider"></LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
