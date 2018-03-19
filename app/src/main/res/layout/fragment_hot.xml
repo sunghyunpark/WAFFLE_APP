@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginBottom="55dp"
     tools:context="view.LikeCafeFragment">
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
     <RelativeLayout
@@ -63,16 +63,10 @@
         android:layout_marginTop="15dp">
     </android.support.v4.view.ViewPager>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorWhite">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="15dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,8 +93,7 @@
             android:id="@+id/recent_comment_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_marginTop="10dp" />
 
         <Button
             android:id="@+id/go_to_all_comment_btn_bottom"
@@ -109,7 +102,7 @@
             android:textColor="@color/colorGray"
             android:background="@color/colorBackgroundGray"
             android:text="더보기"/>
-    </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
