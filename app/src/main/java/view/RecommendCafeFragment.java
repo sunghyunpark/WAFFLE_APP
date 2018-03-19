@@ -1,12 +1,9 @@
 package view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +20,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import api.ApiClient;
-import api.ApiInterface;
-import api.response.CafeResponse;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.CafeModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class RecommendCafeFragment extends Fragment {
@@ -63,10 +54,11 @@ public class RecommendCafeFragment extends Fragment {
 
     View v;
 
-    public static RecommendCafeFragment create(int position) {
+    public static RecommendCafeFragment create(ArrayList<CafeModel> listItems, int position) {
         RecommendCafeFragment fragment = new RecommendCafeFragment();
         Bundle args = new Bundle();
         args.putInt("position", position);
+        args.putSerializable("cafeList", listItems);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +67,7 @@ public class RecommendCafeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt("position");
+        listItems = (ArrayList<CafeModel>) getArguments().getSerializable("cafeList");
 
     }
 
@@ -88,13 +81,12 @@ public class RecommendCafeFragment extends Fragment {
 
         init();
 
-        LoadRecommendCafeList();
+        setData();
 
         return v;
     }
 
     private void init(){
-        listItems = new ArrayList<CafeModel>();
         cal = Calendar.getInstance();
         time = System.currentTimeMillis();
         dayTime = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss a");
@@ -166,36 +158,6 @@ public class RecommendCafeFragment extends Fragment {
         });
 
 
-    }
-
-    private void LoadRecommendCafeList(){
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<CafeResponse> call = apiService.GetRecommendCafeList("recommend_cafe");
-        call.enqueue(new Callback<CafeResponse>() {
-            @Override
-            public void onResponse(Call<CafeResponse> call, Response<CafeResponse> response) {
-                CafeResponse cafeResponse = response.body();
-                if(!cafeResponse.isError()){
-                    int listSize = cafeResponse.getCafeList().size();
-                    for (int i=0;i<listSize;i++){
-                        listItems.add(cafeResponse.getCafeList().get(i));
-                        Log.d("recommend", cafeResponse.getCafeList().get(i).getCafeName());
-                        Log.d("recommend", cafeResponse.getCafeList().get(i).getCafeWeekDaysOpenTime());
-                    }
-                    setData();
-                }else{
-
-                }
-
-            }
-            @Override
-            public void onFailure(Call<CafeResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
-            }
-        });
     }
 
     /**
