@@ -12,7 +12,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp">
+            android:layout_height="180dp"
+            android:padding="0.5dp">
 
             <ImageView
                 android:id="@+id/cafe_thumb_img"

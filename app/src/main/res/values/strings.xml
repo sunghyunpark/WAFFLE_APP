@@ -94,7 +94,9 @@
     <string name="help3_txt">버전 정보</string>
     <string name="logout_btn_txt">로그아웃</string>
 
-    <!--like cafe fragment-->
+    <!--hot fragment-->
     <string name="hot_fragment_title_txt">HOT</string>
+    <string name="hot_fragment_recommend_cafe_title_txt">이런 카페는 어때요?</string>
+    <string name="hot_fragment_recent_comment_title_txt">WAFFLE, NOW</string>
 
 </resources>

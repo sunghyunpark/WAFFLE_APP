@@ -3,7 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="55dp"
     tools:context="view.LikeCafeFragment">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/app_title_bar"
@@ -41,7 +50,7 @@
             android:textSize="20dp"
             android:textColor="#37474F"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
             android:textStyle="bold"
             android:text="이런 카페는 어때요?"/>
 
@@ -50,8 +59,58 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/recommend_pager"
         android:layout_width="wrap_content"
-        android:layout_height="280dp"
+        android:layout_height="260dp"
         android:layout_marginTop="15dp">
     </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorWhite">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hot_fragment_recent_comment_title_txt"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#37474F"/>
+
+            <Button
+                android:id="@+id/go_to_all_comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:textSize="13dp"
+                android:textColor="@color/colorPrimary"
+                android:text="더보기"
+                android:background="@null"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recent_comment_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/go_to_all_comment_btn_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@color/colorGray"
+            android:background="@color/colorBackgroundGray"
+            android:text="더보기"/>
+    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

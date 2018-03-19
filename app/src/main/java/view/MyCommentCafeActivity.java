@@ -27,11 +27,12 @@ import java.util.List;
 
 import api.ApiClient;
 import api.ApiInterface;
-import api.response.MyCommentResponse;
+import api.response.CommentResponse;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import model.CommentModel;
 import model.UserModel;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +43,7 @@ public class MyCommentCafeActivity extends AppCompatActivity {
 
     //RecyclerView
     RecyclerAdapter adapter;
-    private ArrayList<MyCommentResponse.MyComment> commentModelArrayList;
+    private ArrayList<CommentModel> commentModelArrayList;
     CommonUtil commonUtil = new CommonUtil();
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
     @BindView(R.id.back_btn) ImageButton backBtn;
@@ -57,7 +58,7 @@ public class MyCommentCafeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //recyclerview 초기화
-        commentModelArrayList = new ArrayList<MyCommentResponse.MyComment>();
+        commentModelArrayList = new ArrayList<CommentModel>();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         adapter = new RecyclerAdapter(commentModelArrayList);
@@ -73,16 +74,16 @@ public class MyCommentCafeActivity extends AppCompatActivity {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<MyCommentResponse> call = apiService.GetMyCommentCafeList("my_comment_cafe", UserModel.getInstance().getUid());
-        call.enqueue(new Callback<MyCommentResponse>() {
+        Call<CommentResponse> call = apiService.GetMyCommentCafeList("my_comment_cafe", UserModel.getInstance().getUid());
+        call.enqueue(new Callback<CommentResponse>() {
             @Override
-            public void onResponse(Call<MyCommentResponse> call, Response<MyCommentResponse> response) {
-                MyCommentResponse myCommentResponse = response.body();
-                if(!myCommentResponse.isError()){
+            public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+                CommentResponse commentResponse = response.body();
+                if(!commentResponse.isError()){
                     emptyStr.setVisibility(View.GONE);
-                    int listSize = myCommentResponse.getCommentList().size();
+                    int listSize = commentResponse.getCommentList().size();
                     for(int i=0;i<listSize;i++){
-                        commentModelArrayList.add(myCommentResponse.getCommentList().get(i));
+                        commentModelArrayList.add(commentResponse.getCommentList().get(i));
                     }
                     adapter.notifyDataSetChanged();
                 }else{
@@ -92,7 +93,7 @@ public class MyCommentCafeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<MyCommentResponse> call, Throwable t) {
+            public void onFailure(Call<CommentResponse> call, Throwable t) {
                 // Log error here since request failed
                 Log.e("tag", t.toString());
                 Toast.makeText(getApplicationContext(), networkErrorStr,Toast.LENGTH_SHORT).show();
@@ -104,9 +105,9 @@ public class MyCommentCafeActivity extends AppCompatActivity {
 
         private static final int TYPE_ITEM = 0;
 
-        List<MyCommentResponse.MyComment> listItems;
+        List<CommentModel> listItems;
 
-        private RecyclerAdapter(List<MyCommentResponse.MyComment> listItems) {
+        private RecyclerAdapter(List<CommentModel> listItems) {
             this.listItems = listItems;
         }
 
@@ -119,7 +120,7 @@ public class MyCommentCafeActivity extends AppCompatActivity {
             throw new RuntimeException("there is no type that matches the type " + viewType + " + make sure your using types correctly");
         }
 
-        private MyCommentResponse.MyComment getItem(int position) {
+        private CommentModel getItem(int position) {
             return listItems.get(position);
         }
 
@@ -127,7 +128,7 @@ public class MyCommentCafeActivity extends AppCompatActivity {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
             if (holder instanceof RecyclerAdapter.Comment_VH) {
-                final MyCommentResponse.MyComment currentItem = getItem(position);
+                final CommentModel currentItem = getItem(position);
                 final RecyclerAdapter.Comment_VH VHitem = (RecyclerAdapter.Comment_VH)holder;
                 //Glide Options
                 RequestOptions requestOptions_cafe = new RequestOptions();
@@ -137,30 +138,30 @@ public class MyCommentCafeActivity extends AppCompatActivity {
 
                 Glide.with(getApplicationContext())
                         .setDefaultRequestOptions(requestOptions_cafe)
-                        .load(WaffleApplication.SERVER_BASE_PATH+currentItem.getCafe_thumbnail())
+                        .load(WaffleApplication.SERVER_BASE_PATH+currentItem.getCafeThumbnail())
                         .into(VHitem.cafeProfile_iv);
 
-                VHitem.cafeName_tv.setText(currentItem.getCafe_name());
+                VHitem.cafeName_tv.setText(currentItem.getCafeName());
 
                 VHitem.userName_tv.setText(currentItem.getName());
 
                 Date to = null;
                 try{
                     SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    to = transFormat.parse(currentItem.getCreated_at());
+                    to = transFormat.parse(currentItem.getCreatedAt());
                 }catch (ParseException p){
                     p.printStackTrace();
                 }
                 VHitem.updated_tv.setText(commonUtil.formatTimeString(to));
 
-                VHitem.comment_tv.setText(currentItem.getComment_text());
+                VHitem.comment_tv.setText(currentItem.getCommentText());
 
                 VHitem.comment_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), AboutCafeActivity.class);
                         intent.putExtra("isData", "N");
-                        intent.putExtra("cafe_id", getItem(position).getCafe_id());
+                        intent.putExtra("cafe_id", getItem(position).getCafeId());
                         startActivity(intent);
                     }
                 });

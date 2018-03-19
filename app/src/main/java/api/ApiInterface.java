@@ -4,7 +4,7 @@ import api.response.CafeEtcInfoResponse;
 import api.response.CafeResponse;
 import api.response.CommonResponse;
 import api.response.LoginResponse;
-import api.response.MyCommentResponse;
+import api.response.CommentResponse;
 import api.response.MyFavoriteCntResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -113,7 +113,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("cafe/my_favorite.php")
-    Call<MyCommentResponse> GetMyCommentCafeList(@Query("tag") String tag, @Query("uid") String uid);
+    Call<CommentResponse> GetMyCommentCafeList(@Query("tag") String tag, @Query("uid") String uid);
 
     /**
      * Get My Favorite Cafe List API
@@ -131,6 +131,15 @@ public interface ApiInterface {
      */
     @GET("cafe/cafe_info.php")
     Call<CafeResponse> GetRecommendCafeList(@Query("tag") String tag);
+
+    /**
+     * Get Recent Comment (WAFFLE, NOW) API
+     * @param tag -> recent_comment
+     * @param flag -> all or N
+     * @return
+     */
+    @GET("cafe/cafe_info.php")
+    Call<CommentResponse> GetRecentCommentList(@Query("tag") String tag, @Query("comment_flag") String flag, @Query("last_comment_id") String lastCommentId);
 
 
 

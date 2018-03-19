@@ -11,6 +11,10 @@ public class CommentModel {
     private String commentId;
     @SerializedName("cafe_id")
     private String cafeId;
+    @SerializedName("cafe_name")
+    private String cafeName;
+    @SerializedName("cafe_thumbnail")
+    private String cafeThumbnail;
     private String uid;
     private String name;
     @SerializedName("comment_text")
@@ -40,6 +44,22 @@ public class CommentModel {
 
     public void setCafeId(String cafeId) {
         this.cafeId = cafeId;
+    }
+
+    public String getCafeName() {
+        return cafeName;
+    }
+
+    public void setCafeName(String cafeName) {
+        this.cafeName = cafeName;
+    }
+
+    public String getCafeThumbnail() {
+        return cafeThumbnail;
+    }
+
+    public void setCafeThumbnail(String cafeThumbnail) {
+        this.cafeThumbnail = cafeThumbnail;
     }
 
     public String getUid() {
