@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginBottom="55dp"
     tools:context="view.LikeCafeFragment">
@@ -89,17 +89,23 @@
                 android:background="@null"/>
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recent_comment_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            <!--RelativeLayout 으로 감싸줘야 리스트가 제대로 노출됨. -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recent_comment_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
 
         <Button
             android:id="@+id/go_to_all_comment_btn_bottom"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/colorGray"
+            android:visibility="gone"
             android:background="@color/colorBackgroundGray"
             android:text="더보기"/>
 

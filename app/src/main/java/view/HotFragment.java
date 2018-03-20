@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class HotFragment extends Fragment {
 
     @BindView(R.id.recommend_pager) ViewPager recommendPager;
     @BindView(R.id.recent_comment_recyclerView) RecyclerView recentCommentRecyclerView;
+    @BindView(R.id.go_to_all_comment_btn_bottom) Button goToAllCommentBtn;
     CommonUtil commonUtil = new CommonUtil();
     View v;
 
@@ -131,6 +133,8 @@ public class HotFragment extends Fragment {
                 CommentResponse commentResponse = response.body();
                 if(!commentResponse.isError()){
                     int listSize = commentResponse.getCommentList().size();
+                    if(listSize > 0)
+                        goToAllCommentBtn.setVisibility(View.VISIBLE);
                     for (int i=0;i<listSize;i++){
                         commentList.add(commentResponse.getCommentList().get(i));
                         Log.d("recentComment", commentResponse.getCommentList().get(i).getCafeName());
