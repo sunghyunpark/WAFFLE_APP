@@ -1,7 +1,6 @@
 package view;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +23,7 @@ import util.LoginManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoadingDialog loadingDialog;
+    //private LoadingDialog loadingDialog;
     private SessionManager sessionManager;
     private FirebaseAuth mAuth;
 
@@ -39,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        if(loadingDialog != null)
-        loadingDialog.dismiss();
+        //if(loadingDialog != null)
+        //loadingDialog.dismiss();
     }
 
     @Override
@@ -62,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(getApplicationContext());
 
-        loadingDialog = new LoadingDialog(this);
-        loadingDialog.getWindow()
-                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //loadingDialog = new LoadingDialog(this);
+        //loadingDialog.getWindow()
+                //.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
     /**
@@ -82,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), "Sign In Fail From Firebase",
                                     Toast.LENGTH_SHORT).show();
-                            if(loadingDialog != null)
-                                loadingDialog.dismiss();
+                            //if(loadingDialog != null)
+                                //loadingDialog.dismiss();
                         }
                     } } );
 
@@ -113,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         }else if(passwordStr.length()<6){
             Toast.makeText(getApplicationContext(), inputPwErrorStr, Toast.LENGTH_SHORT).show();
         }else{
-            loadingDialog.show();
+            //loadingDialog.show();
             signIn(emailStr, passwordStr);
         }
     }
