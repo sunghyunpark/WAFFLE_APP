@@ -16,6 +16,7 @@ public class WaffleApplication extends Application{
     public static final String SERVER_API_PATH = "http://13.124.188.3/waffle_test/api/v1/";
     public static int DISPLAY_WIDTH;
     public static int DISPLAY_HEIGHT;
+    public static int STATUS_BAR_HEIGT;
 
     @Override
     public void onCreate() {
@@ -24,8 +25,18 @@ public class WaffleApplication extends Application{
         display = ((WindowManager)getApplicationContext().getSystemService(getApplicationContext().WINDOW_SERVICE)).getDefaultDisplay();
         DISPLAY_HEIGHT = display.getHeight();
         DISPLAY_WIDTH = display.getWidth();
+        STATUS_BAR_HEIGT = getStatusBarHeight();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override

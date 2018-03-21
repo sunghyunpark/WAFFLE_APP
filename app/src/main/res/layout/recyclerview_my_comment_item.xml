@@ -58,7 +58,6 @@
             android:textColor="@color/colorGray"
             android:layout_below="@+id/user_name_txt"
             android:layout_marginTop="7dp"
-            android:maxLines="4"
             android:paddingRight="10dp"
             android:ellipsize="end"/>
 
