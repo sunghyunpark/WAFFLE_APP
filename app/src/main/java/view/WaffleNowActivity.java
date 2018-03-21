@@ -2,16 +2,13 @@ package view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,129 +25,77 @@ import java.util.List;
 
 import api.ApiClient;
 import api.ApiInterface;
-import api.response.CafeResponse;
 import api.response.CommentResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import model.CafeModel;
 import model.CommentModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import util.CommonUtil;
 
+public class WaffleNowActivity extends AppCompatActivity {
 
-public class HotFragment extends Fragment {
-
-    @BindView(R.id.recommend_pager) ViewPager recommendPager;
-    @BindView(R.id.recent_comment_recyclerView) RecyclerView recentCommentRecyclerView;
-    @BindView(R.id.go_to_all_comment_btn_bottom) Button goToAllCommentBtnBottom;
+    private static final int LOAD_DATA_COUNT = 10;
+    private ArrayList<CommentModel> listItems;
+    private String lastCommentId = "0";
+    private CommentRecyclerAdapter commentRecyclerAdapter;
     CommonUtil commonUtil = new CommonUtil();
-    View v;
+    @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_waffle_now);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_hot, container, false);
-
-        ButterKnife.bind(this, v);
+        ButterKnife.bind(this);
 
         init();
-
-        return v;
     }
 
     /**
-     * 초기화
+     * init
      */
     private void init(){
+        listItems = new ArrayList<CommentModel>();
 
-        LoadRecommendCafeList();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        commentRecyclerAdapter = new CommentRecyclerAdapter(listItems);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(commentRecyclerAdapter);
 
-        LoadRecentCafeList();
-    }
-
-    /**
-     * 이런 카페는 어때요? 데이터를 불러온 뒤 viewPager 에 적용
-     */
-    private void LoadRecommendCafeList(){
-        final ArrayList<CafeModel> recommendCafeList = new ArrayList<CafeModel>();
-
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<CafeResponse> call = apiService.GetRecommendCafeList("recommend_cafe");
-        call.enqueue(new Callback<CafeResponse>() {
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
-            public void onResponse(Call<CafeResponse> call, Response<CafeResponse> response) {
-                CafeResponse cafeResponse = response.body();
-                if(!cafeResponse.isError()){
-                    int listSize = cafeResponse.getCafeList().size();
-                    for (int i=0;i<listSize;i++){
-                        recommendCafeList.add(cafeResponse.getCafeList().get(i));
-                    }
-
-                    PagerAdapter mPagerAdapter = new PagerAdapter(getFragmentManager(), recommendCafeList);
-                    float density = getResources().getDisplayMetrics().density;
-                    int pageMargin = 8 * (int)density; // 8dp
-
-                    recommendPager.setPageMargin(pageMargin);
-                    recommendPager.setClipToPadding(false);
-                    recommendPager.setPadding(80, 0, 80, 0);
-                    recommendPager.setAdapter(mPagerAdapter);
-                }else{
-
-                }
-            }
-            @Override
-            public void onFailure(Call<CafeResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e("tag", t.toString());
+            public void onLoadMore(int current_page) {
+                // do something...
+                LoadData();
             }
         });
+
+        LoadData();
     }
 
     /**
-     * WAFFLE, NOW 데이터 받아옴
+     * Load WAFFLE NOW Data
      */
-    private void LoadRecentCafeList(){
-        final ArrayList<CommentModel> commentList = new ArrayList<CommentModel>();
-
+    private void LoadData(){
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<CommentResponse> call = apiService.GetRecentCommentList("recent_comment", "N", "0");
+        Call<CommentResponse> call = apiService.GetRecentCommentList("recent_comment", "all", lastCommentId);
         call.enqueue(new Callback<CommentResponse>() {
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                 CommentResponse commentResponse = response.body();
                 if(!commentResponse.isError()){
                     int listSize = commentResponse.getCommentList().size();
-                    if(listSize > 0)
-                        goToAllCommentBtnBottom.setVisibility(View.VISIBLE);
                     for (int i=0;i<listSize;i++){
-                        commentList.add(commentResponse.getCommentList().get(i));
-                        Log.d("recentComment", commentResponse.getCommentList().get(i).getCafeName());
+                        listItems.add(commentResponse.getCommentList().get(i));
+                        Log.d("WAFFLE_NOW", commentResponse.getCommentList().get(i).getCafeName());
                     }
-                    /*
-                     * WAFFLE NOW recyclerView
-                     */
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                    CommentRecyclerAdapter commentRecyclerAdapter = new CommentRecyclerAdapter(commentList);
-                    recentCommentRecyclerView.setLayoutManager(linearLayoutManager);
-                    recentCommentRecyclerView.setNestedScrollingEnabled(false);
-                    recentCommentRecyclerView.setAdapter(commentRecyclerAdapter);
-
-                }else{
-
+                    lastCommentId = commentResponse.getLastCommentId();
+                    commentRecyclerAdapter.notifyDataSetChanged();
                 }
             }
             @Override
@@ -161,43 +106,49 @@ public class HotFragment extends Fragment {
         });
     }
 
-    /**
-     * 이런 카페는 어떄요? viewPager Adapter
-     */
-    private class PagerAdapter extends FragmentStatePagerAdapter {
-        private ArrayList<CafeModel> listItem;
+    private abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
+        
+        private int previousTotal = 0; // The total number of items in the dataset after the last load
+        private boolean loading = true; // True if we are still waiting for the last set of data to load.
+        private int visibleThreshold = LOAD_DATA_COUNT; // The minimum amount of items to have below your current scroll position before loading more.
+        int firstVisibleItem, visibleItemCount, totalItemCount;
 
-        public PagerAdapter(android.support.v4.app.FragmentManager fm, ArrayList<CafeModel> listItems) {
-            super(fm);
-            this.listItem = listItems;
+        private int current_page = 1;
 
+        private LinearLayoutManager mLinearLayoutManager;
+
+        public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
+            this.mLinearLayoutManager = linearLayoutManager;
         }
+
         @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-        @Override
-        public Fragment getItem(int position) {
-            // 해당하는 page의 Fragment를 생성합니다.
-            return RecommendCafeFragment.create(listItem, position);
-        }
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-            if (object instanceof Fragment) {
-                Fragment fragment = (Fragment) object;
-                android.support.v4.app.FragmentManager fm = fragment.getFragmentManager();
-                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                ft.remove(fragment);
-                //this.notifyDataSetChanged();
-                ft.commitAllowingStateLoss();
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            visibleItemCount = recyclerView.getChildCount();
+            totalItemCount = mLinearLayoutManager.getItemCount();
+            firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+
+            if (loading) {
+                if (totalItemCount > previousTotal) {
+                    loading = false;
+                    previousTotal = totalItemCount;
+                }
+            }
+            if (!loading && (totalItemCount - visibleItemCount)
+                    <= (firstVisibleItem + visibleThreshold)) {
+                // End has been reached
+
+                // Do something
+                current_page++;
+
+                onLoadMore(current_page);
+
+                loading = true;
             }
         }
-        @Override
-        public int getCount() {
-            return 5;
-        }
 
+        public abstract void onLoadMore(int current_page);
     }
 
     /**
@@ -238,7 +189,7 @@ public class HotFragment extends Fragment {
                 //requestOptions_cafe.error(R.mipmap.not_cafe_img);
                 requestOptions_cafe.circleCrop();    //circle
 
-                Glide.with(getActivity())
+                Glide.with(getApplicationContext())
                         .setDefaultRequestOptions(requestOptions_cafe)
                         .load(WaffleApplication.SERVER_BASE_PATH+currentItem.getCafeThumbnail())
                         .into(VHitem.cafeProfile_iv);
@@ -259,7 +210,7 @@ public class HotFragment extends Fragment {
                 VHitem.comment_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), AboutCafeActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), AboutCafeActivity.class);
                         intent.putExtra("isData", "N");
                         intent.putExtra("cafe_id", getItem(position).getCafeId());
                         startActivity(intent);
@@ -299,9 +250,7 @@ public class HotFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.go_to_all_comment_btn, R.id.go_to_all_comment_btn_bottom}) void goWaffleNow(){
-        Intent intent = new Intent(getContext(), WaffleNowActivity.class);
-        startActivity(intent);
+    @OnClick(R.id.back_btn) void goBack(){
+        finish();
     }
-
 }

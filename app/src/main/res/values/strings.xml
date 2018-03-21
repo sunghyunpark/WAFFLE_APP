@@ -99,4 +99,6 @@
     <string name="hot_fragment_recommend_cafe_title_txt">이런 카페는 어때요?</string>
     <string name="hot_fragment_recent_comment_title_txt">WAFFLE, NOW</string>
 
+    <!--WAFFLE NOW-->
+    <string name="waffle_now_activity_title_txt">WAFFLE NOW</string>
 </resources>

@@ -236,25 +236,6 @@ public class AboutCafeActivity extends AppCompatActivity {
                 CafeResponse cafeResponse = response.body();
                 if(!cafeResponse.isError()){
                     try{
-                        /*
-                        cafeModel.setCafeId(cafeResponse.getCafeList().get(0).getCafeId());
-                        cafeModel.setCafeName(cafeResponse.getCafeList().get(0).getCafeName());
-                        cafeModel.setCafeThumbnail(cafeResponse.getCafeList().get(0).getCafeThumbnail());
-                        cafeModel.setCafePhoneNum(cafeResponse.getCafeList().get(0).getCafePhoneNum());
-                        cafeModel.setCafeAddress(cafeResponse.getCafeList().get(0).getCafeAddress());
-                        cafeModel.setCafeWeekendOpenTime(cafeResponse.getCafeList().get(0).getCafeWeekendOpenTime());
-                        cafeModel.setCafeIntro(cafeResponse.getCafeList().get(0).getCafeIntro());
-                        cafeModel.setCafeWeekDaysCloseTime(cafeResponse.getCafeList().get(0).getCafeWeekDaysCloseTime());
-                        cafeModel.setCafeWeekDaysOpenTime(cafeResponse.getCafeList().get(0).getCafeWeekDaysOpenTime());
-                        cafeModel.setCafeDayOff(cafeResponse.getCafeList().get(0).getCafeDayOff());
-                        cafeModel.setCafeFullTimeState(cafeResponse.getCafeList().get(0).getCafeFullTimeState());
-                        cafeModel.setCafeWifiState(cafeResponse.getCafeList().get(0).getCafeWifiState());
-                        cafeModel.setCafeLatitude(cafeResponse.getCafeList().get(0).getCafeLatitude());
-                        cafeModel.setCafeLongitude(cafeResponse.getCafeList().get(0).getCafeLongitude());
-                        cafeModel.setCafeParkingState(cafeResponse.getCafeList().get(0).getCafeParkingState());
-                        cafeModel.setCafeWeekendCloseTime(cafeResponse.getCafeList().get(0).getCafeWeekendCloseTime());
-                        cafeModel.setCafeSmokeState(cafeResponse.getCafeList().get(0).getCafeSmokeState());
-                        */
                         cafeModel = cafeResponse.getCafeList().get(0);
                     }catch (NullPointerException e){
                         e.printStackTrace();

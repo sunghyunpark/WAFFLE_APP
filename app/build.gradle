@@ -19,7 +19,7 @@ android {
 
             applicationVariants.all { variant ->
                 variant.outputs.each {
-                    output->
+                    output ->
                         def file = output.outputFile
                         output.outputFile = new File(file.parent,
                                 file.name.replace("app", "WAFFLE_" + defaultConfig.versionName))
