@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_info_layout"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="55dp"
+        android:layout_marginLeft="15dp"
         android:textSize="15dp"
         android:textColor="@color/colorBlack"
         android:layout_marginRight="15dp"
