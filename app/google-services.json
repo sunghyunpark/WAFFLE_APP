@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "895795014186",
-    "firebase_url": "https://waffle-b93bb.firebaseio.com",
-    "project_id": "waffle-b93bb",
-    "storage_bucket": "waffle-b93bb.appspot.com"
+    "project_number": "818355784270",
+    "firebase_url": "https://waffle-6db6f.firebaseio.com",
+    "project_id": "waffle-6db6f",
+    "storage_bucket": "waffle-6db6f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:895795014186:android:2faa6bc17259a926",
+        "mobilesdk_app_id": "1:818355784270:android:2faa6bc17259a926",
         "android_client_info": {
           "package_name": "com.cafemobile.waffle"
         }
       },
       "oauth_client": [
         {
-          "client_id": "895795014186-osq63v0mv04slgsqhhcaekrbhj1glc3k.apps.googleusercontent.com",
+          "client_id": "818355784270-d4j1puahm6q3ocjlcng2gfibrq3q0npb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC3w7pGsOrsQPMmt1sAPw3Tc5ZIwi1MZFU"
+          "current_key": "AIzaSyB2qUjdC8bul3Havygx4G-REVE9Kv_snbw"
         }
       ],
       "services": {
