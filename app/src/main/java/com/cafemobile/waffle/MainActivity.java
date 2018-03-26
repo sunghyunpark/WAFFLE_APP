@@ -33,6 +33,7 @@ import view.SettingFragment;
  * 2. mAuth 객체를 통해 Firebase에서 로그인 중인 유저가 있는지 판별
  * 3. 로그인 상태 > Realm에 저장된 user 데이터를 싱글톤 객체에 저장
  * 4. 미로그인 상태 > Intro 화면으로 이동된다.
+ * 
  */
 
 public class MainActivity extends AppCompatActivity {
